@@ -1,0 +1,17 @@
+name: goostserver
+version: '${project.version}'
+main: me.goost.goostserver.GoostServer
+api-version: 1.19
+commands:
+  Job:
+    description: Sets your job to
+    aliases: job
+    usage: /<command>
+  level:
+    description: character level
+    aliases: lev
+    usage: /<command>
+  test:
+    description: testing things
+    aliases: tst
+    usage: /<command>
