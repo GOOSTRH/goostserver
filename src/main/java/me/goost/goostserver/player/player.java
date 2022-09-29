@@ -2,7 +2,6 @@ package me.goost.goostserver.player;
 
 import me.goost.goostserver.GoostServer;
 
-import me.lemonypancakes.bukkit.common.actionbarapi.ActionBarAPI;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
