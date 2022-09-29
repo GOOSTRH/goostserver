@@ -53,18 +53,6 @@ public class player implements Listener {
                 damage = 0;
             }
 
-            ActionBarAPI.sendMessage(player,
-                    ChatColor.RED +
-                            String.valueOf(Math.round(health.get(player.getUniqueId()))) +
-                            "/" +
-                            (healthy.get(player.getUniqueId()))+
-                            "❤ -"+Math.round(damage)+"       "+
-                            ChatColor.GREEN+
-                            def.get_def(player.getUniqueId()) +"🛡       "+
-                            ChatColor.BLUE+
-                            "200/200 ⁂"
-
-            );
 
             player.sendMessage(""+damage);
             health.replace(player.getUniqueId(),health.get(player.getUniqueId())-damage);
@@ -94,12 +82,12 @@ public class player implements Listener {
                         EntityType.ARMOR_STAND);
 
         indicator.setVisible(false);
-        indicator.setCustomNameVisible(true);
         indicator.setVelocity(v);
+        indicator.setCustomNameVisible(true);
         indicator.setCustomName(ChatColor.RED+"-"+Math.round(damage));
         indicator.setSmall(true);
         indicator.setBasePlate(false);
-        indicator.setMarker(true);
+        //indicator.setMarker(true);
 
         Plugin plugin = GoostServer.plugin;
         long delay_time = 10L;

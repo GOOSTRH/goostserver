@@ -1,6 +1,7 @@
 package me.goost.goostserver.player.commands;
 
 import me.goost.goostserver.player.choose_class;
+import me.goost.goostserver.player.health;
 import me.goost.goostserver.player.show_stat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,7 +32,7 @@ public class Job implements CommandExecutor {
                     if (Job.get(player.getUniqueId()) != null) {
                         player.sendMessage("이미 직업이 적용됐습니다");
                     } else Job.putIfAbsent(player.getUniqueId(), "archer");
-                    show_stat.check_player(player);
+                    health.check_player(player);
                     choose_class.player_.put(player.getUniqueId(),Boolean.TRUE);
                     choose_class.choosing_class.put(player.getUniqueId(),Boolean.FALSE);
                     player.setWalkSpeed(0.2f);
@@ -41,7 +42,7 @@ public class Job implements CommandExecutor {
                     if (Job.get(player.getUniqueId()) != null) {
                         player.sendMessage("이미 직업이 적용됐습니다");
                     } else Job.putIfAbsent(player.getUniqueId(), "dragon");
-                    show_stat.check_player(player);
+                    health.check_player(player);
                     choose_class.player_.put(player.getUniqueId(),Boolean.TRUE);
                     choose_class.choosing_class.put(player.getUniqueId(),Boolean.FALSE);
                     player.setWalkSpeed(0.17f);
@@ -51,7 +52,7 @@ public class Job implements CommandExecutor {
                     if (Job.get(player.getUniqueId()) != null) {
                         player.sendMessage("이미 직업이 적용됐습니다");
                     } else Job.putIfAbsent(player.getUniqueId(), "dark_elf");
-                    show_stat.check_player(player);
+                    health.check_player(player);
                     choose_class.player_.put(player.getUniqueId(),Boolean.TRUE);
                     choose_class.choosing_class.put(player.getUniqueId(),Boolean.FALSE);
                     player.setWalkSpeed(0.30f);
@@ -69,7 +70,7 @@ public class Job implements CommandExecutor {
                     if (Job.get(player.getUniqueId()) != null) {
                         player.sendMessage("이미 직업이 적용됐습니다");
                     } else Job.putIfAbsent(player.getUniqueId(), "sword_man");
-                    show_stat.check_player(player);
+                    health.check_player(player);
                     choose_class.player_.put(player.getUniqueId(),Boolean.TRUE);
                     choose_class.choosing_class.put(player.getUniqueId(),Boolean.FALSE);
                     player.setWalkSpeed(0.25f);
@@ -79,7 +80,7 @@ public class Job implements CommandExecutor {
                     if (Job.get(player.getUniqueId()) != null) {
                         player.sendMessage("이미 직업이 적용됐습니다");
                     } else Job.putIfAbsent(player.getUniqueId(), "demon");
-                    show_stat.check_player(player);
+                    health.check_player(player);
                     choose_class.player_.put(player.getUniqueId(),Boolean.TRUE);
                     choose_class.choosing_class.put(player.getUniqueId(),Boolean.FALSE);
                     player.setWalkSpeed(0.30f);

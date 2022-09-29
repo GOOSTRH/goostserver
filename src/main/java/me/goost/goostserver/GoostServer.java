@@ -41,8 +41,10 @@ public class GoostServer extends JavaPlugin{
                 choose_class.repeat(); // BLANK
                 scoreboard.always_check(); // checking cur time and gete the string and import
                 mana.repeat(); // mana repeat // increase mana every few sec
+                health.check_player_health_always(); // check player's health always
             }
         }, 2, 2);
+
         time.main();
         //register commands
         registerCommands();
@@ -72,6 +74,9 @@ public class GoostServer extends JavaPlugin{
         Player player = e.getPlayer();
         if(!player.hasPlayedBefore()){
             money.setmoneyforfirsttimer(player.getUniqueId());
+        }
+        if(money.get_bank(player.getUniqueId()) == null || money.get_cash(player.getUniqueId()) == null){
+            //money.setmoneyforfirsttimer(player.getUniqueId());
         }
     }
 
