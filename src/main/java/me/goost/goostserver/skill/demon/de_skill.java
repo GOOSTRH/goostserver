@@ -18,12 +18,12 @@ public class de_skill {
                 de_skill.sneakjump_cooldown.replace(player.getUniqueId(),onground.groundcheck(uuid));
                 onground.groundreplace(uuid,false);
             }
-            de_skill.sneakjump(player);
+            de_skill.demon_super_jump(player);
         }
     }
 
 
-    public static void sneakjump(Player player){
+    public static void demon_super_jump(Player player){
 
         if(!sneakjump_cooldown.containsKey(player.getUniqueId())){
             sneakjump_cooldown.put(player.getUniqueId(),true);
