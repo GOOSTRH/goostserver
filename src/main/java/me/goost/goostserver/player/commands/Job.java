@@ -3,6 +3,7 @@ package me.goost.goostserver.player.commands;
 import me.goost.goostserver.player.choose_class;
 import me.goost.goostserver.player.health;
 import me.goost.goostserver.player.show_stat;
+import me.goost.goostserver.skill.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -35,7 +36,7 @@ public class Job implements CommandExecutor {
                     health.check_player(player);
                     choose_class.player_.put(player.getUniqueId(),Boolean.TRUE);
                     choose_class.choosing_class.put(player.getUniqueId(),Boolean.FALSE);
-                    player.setWalkSpeed(0.2f);
+                    player.setWalkSpeed(0.20f);
                     break;
 
                 case "DRA"://DRAGON for users
@@ -57,11 +58,7 @@ public class Job implements CommandExecutor {
                     choose_class.choosing_class.put(player.getUniqueId(),Boolean.FALSE);
                     player.setWalkSpeed(0.30f);
 
-                    ItemStack invis_book = new ItemStack(Material.ENCHANTED_BOOK, 1);
-                    ItemMeta meta = invis_book.getItemMeta();
-                    meta.setDisplayName(ChatColor.YELLOW + "은신");
-                    invis_book.setItemMeta(meta);
-                    player.getInventory().addItem(invis_book);
+                    player.getInventory().addItem(Items.Dark_Elf_invis_book);
 
 
                     break;

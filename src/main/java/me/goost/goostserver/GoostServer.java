@@ -5,6 +5,7 @@ import me.goost.goostserver.player.commands.Job;
 import me.goost.goostserver.player.choose_class;
 import me.goost.goostserver.player.commands.level;
 import me.goost.goostserver.player.commands.test;
+import me.goost.goostserver.skill.Items;
 import me.goost.goostserver.skill.check.check;
 import me.goost.goostserver.skill.check.onground;
 import me.goost.goostserver.worlds.time;
@@ -28,6 +29,7 @@ public class GoostServer extends JavaPlugin{
     @Override
     public void onEnable() {
         choose_class.check_online_player_job(); // check if online players in the server has a job or not
+        Items.set_all_items(); // setting all the values for the skill items
 
         plugin = this;
         Plugin plugin = this;
@@ -57,6 +59,7 @@ public class GoostServer extends JavaPlugin{
         Bukkit.getPluginManager().registerEvents(new remove_join_message(), this);
         Bukkit.getPluginManager().registerEvents(new show_stat(), this);
         Bukkit.getPluginManager().registerEvents(new scoreboard(), this);
+        Bukkit.getPluginManager().registerEvents(new check(), this);
 
 
     }

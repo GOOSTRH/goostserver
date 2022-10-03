@@ -125,7 +125,7 @@ public class health implements Listener{
             healthscale.put(player.getUniqueId(),20.0);
 
             def.set_def(player.getUniqueId(),150);
-            mana.set_mana(player.getUniqueId(),250);
+            mana.set_mana(player.getUniqueId(),300);                     // not correct
             mana.set_manam(player.getUniqueId(),800);
 
         }else if(Job.Job.get(player.getUniqueId()).equals("sword_man") ){

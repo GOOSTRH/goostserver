@@ -1,9 +1,7 @@
 package me.goost.goostserver.skill.demon;
 
 import me.goost.goostserver.skill.check.onground;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -38,8 +36,9 @@ public class de_skill {
 
             Location loc = player.getLocation();
 
-            Vector direction = player.getLocation().getDirection();
-            loc.getWorld().spawnParticle(Particle.CAMPFIRE_SIGNAL_SMOKE, loc, 0,-direction.getX(),-direction.getY(),-direction.getZ(), 1.5);
+            //Vector v = player.getLocation().getDirection();
+            Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(64,64,64), 1);
+            loc.getWorld().spawnParticle(Particle.REDSTONE, loc.getX(), loc.getY(), loc.getZ(), 5,0.3,0,0.3,dustOptions);
 
             sneakjump_cooldown.replace(player.getUniqueId(),false);
         }
