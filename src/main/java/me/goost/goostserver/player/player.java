@@ -72,9 +72,9 @@ public class player implements Listener {
     public void show_entity_indicator(Entity victim,double damage){
 
         Vector v = new Vector();
-        v.setX((0.0D + Math.random() - Math.random())/2.2);
-        v.setY(Math.random()/2);
-        v.setX((0.0D + Math.random() - Math.random())/2.2);
+        v.setX(0);
+        v.setY(0.5);
+        v.setX(0);
 
         ArmorStand indicator = (ArmorStand) victim.getWorld()
                 .spawnEntity(victim.getLocation().add(0,1,0),
@@ -86,7 +86,6 @@ public class player implements Listener {
         indicator.setCustomName(ChatColor.RED+"-"+Math.round(damage));
         indicator.setSmall(true);
         indicator.setBasePlate(false);
-        //indicator.setMarker(true);
 
         Plugin plugin = GoostServer.plugin;
         long delay_time = 10L;

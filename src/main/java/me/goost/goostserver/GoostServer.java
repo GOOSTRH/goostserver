@@ -22,7 +22,7 @@ public class GoostServer extends JavaPlugin{
 
     public static GoostServer plugin;
 
-    public GoostServer getplugin() {
+    public static Plugin getPlugin() {
         return plugin;
     }
 
@@ -42,10 +42,12 @@ public class GoostServer extends JavaPlugin{
                 Job.repeat(); // reminds player to choose class
                 choose_class.repeat(); // BLANK
                 scoreboard.always_check(); // checking cur time and gete the string and import
-                mana.repeat(); // mana repeat // increase mana every few sec
                 health.check_player_health_always(); // check player's health always
+                mana.mana_on_tick(); // check if player's mana is overflowed , if so set it to max
             }
         }, 2, 2);
+
+        mana.repeat(); // mana repeat // increase mana every few sec
 
         time.main();
         //register commands
