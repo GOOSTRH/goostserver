@@ -62,7 +62,6 @@ public class GoostServer extends JavaPlugin{
         Bukkit.getPluginManager().registerEvents(new show_stat(), this);
         Bukkit.getPluginManager().registerEvents(new scoreboard(), this);
         Bukkit.getPluginManager().registerEvents(new check(), this);
-        //made change
 
 
     }
