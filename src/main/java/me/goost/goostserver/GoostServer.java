@@ -62,6 +62,7 @@ public class GoostServer extends JavaPlugin{
         Bukkit.getPluginManager().registerEvents(new show_stat(), this);
         Bukkit.getPluginManager().registerEvents(new scoreboard(), this);
         Bukkit.getPluginManager().registerEvents(new check(), this);
+        //made change
 
 
     }
@@ -81,7 +82,7 @@ public class GoostServer extends JavaPlugin{
             money.setmoneyforfirsttimer(player.getUniqueId());
         }
         if(money.get_bank(player.getUniqueId()) == null || money.get_cash(player.getUniqueId()) == null){
-            //money.setmoneyforfirsttimer(player.getUniqueId());
+            money.setmoneyforfirsttimer(player.getUniqueId());
         }
     }
 

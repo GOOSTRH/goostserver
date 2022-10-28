@@ -1,27 +1,13 @@
-package me.goost.goostserver.skill.demon;
+package me.goost.goostserver.skill.archer;
 
-import me.goost.goostserver.skill.check.onground;
-import org.bukkit.*;
+import org.bukkit.Color;
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import java.util.HashMap;
-import java.util.UUID;
-
-public class de_skill {
-    private static HashMap<UUID, Boolean> sneakjump_cooldown = new HashMap<>();
-
-    public static void demon_skill_check(Player player,UUID uuid){
-        // if the player is sneaking and on ground once and jumping
-        if (player.isSneaking() && !player.isOnGround() && onground.groundcheck(uuid)){
-            if(onground.groundcheck(uuid)){
-                de_skill.sneakjump_cooldown.replace(player.getUniqueId(),onground.groundcheck(uuid));
-                onground.groundreplace(uuid,false);
-            }
-            de_skill.demon_super_jump(player);
-        }
-    }
-
+public class ac_skill {
 
     public static void demon_super_jump(Player player){
 
@@ -42,14 +28,5 @@ public class de_skill {
             sneakjump_cooldown.replace(player.getUniqueId(),false);
         }
     }
+
 }
-
-
-
-
-
-
-
-
-
-

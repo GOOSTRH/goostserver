@@ -22,5 +22,7 @@ public class money {
         money.set_cash(uuid,0);
     }
 
+
+
 }
 

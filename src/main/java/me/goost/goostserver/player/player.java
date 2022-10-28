@@ -73,7 +73,7 @@ public class player implements Listener {
 
         Vector v = new Vector();
         v.setX(0);
-        v.setY(0.5);
+        v.setY(0.3);
         v.setX(0);
 
         ArmorStand indicator = (ArmorStand) victim.getWorld()

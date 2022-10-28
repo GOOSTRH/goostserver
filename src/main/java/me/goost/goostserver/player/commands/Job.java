@@ -19,6 +19,8 @@ import java.util.UUID;
 
 public class Job implements CommandExecutor {
 
+    public static HashMap<UUID, String> Job = new HashMap<>();
+
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
         if(!(sender instanceof Player)){
             return true;
@@ -57,10 +59,7 @@ public class Job implements CommandExecutor {
                     choose_class.player_.put(player.getUniqueId(),Boolean.TRUE);
                     choose_class.choosing_class.put(player.getUniqueId(),Boolean.FALSE);
                     player.setWalkSpeed(0.30f);
-
-                    player.getInventory().addItem(Items.Dark_Elf_invis_book);
-
-
+                    give_item(player,"dark_elf");
                     break;
 
                 case "S"://Swrod_man for users
@@ -95,19 +94,28 @@ public class Job implements CommandExecutor {
     }
 
 
-    public static HashMap<UUID, String> Job = new HashMap<>();
-
     public static void repeat(){
         for (Player player : Bukkit.getOnlinePlayers()) {
             if(Job.get(player.getUniqueId()) == null){
                 player.sendTitle("직업을 선택해주세요", "", 0, 10, 0);
 
-            }else if(Job.get(player.getUniqueId()).equals("demon")){
-
             }
-
         }
     }
+
+
+    public static void give_item(Player player, String job){
+        switch (job){
+            case "dark_elf":
+                player.getInventory().addItem(Items.Dark_Elf_invis_book);
+                player.getInventory().addItem(Items.Short_knife);
+                break;
+            case "archer":
+                player.getInventory().addItem(Items.Archer_Bow);
+                break;
+        }
+    }
+
 }
 
 
