@@ -9,6 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -76,26 +78,34 @@ public class player implements Listener {
         v.setY(0.3);
         v.setX(0);
 
+        double max = 0.5;
+        double min = -0.5;
+        double range = max - min + 1;
+
+        double x = (Math.random() * range)-1,
+                y = (Math.random() * range)-1,
+                z = (Math.random() * range)-1;
+
         ArmorStand indicator = (ArmorStand) victim.getWorld()
-                .spawnEntity(victim.getLocation().add(0,1,0),
+                .spawnEntity(victim.getLocation().add(x,y+1,z),
                         EntityType.ARMOR_STAND);
 
         indicator.setVisible(false);
-        indicator.setVelocity(v);
+        //indicator.setVelocity(v);
         indicator.setCustomNameVisible(true);
-        indicator.setCustomName(ChatColor.RED+"-"+Math.round(damage));
+        indicator.setCustomName(ChatColor.RED+""+Math.round(damage));
         indicator.setSmall(true);
+        indicator.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 20, 1),true);
         indicator.setBasePlate(false);
 
         Plugin plugin = GoostServer.plugin;
-        long delay_time = 10L;
+        double delay_time = (0.85 * 20);
         new BukkitRunnable() {
             @Override
             public void run() {
-                // run this code in 5 seconds
                 indicator.remove();
             }
-        }.runTaskLater(plugin, delay_time);
+        }.runTaskLater(plugin, (long)delay_time);
     }
 
 }

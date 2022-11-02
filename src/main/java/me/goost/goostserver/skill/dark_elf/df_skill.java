@@ -2,6 +2,7 @@ package me.goost.goostserver.skill.dark_elf;
 
 import me.goost.goostserver.player.mana;
 import me.goost.goostserver.skill.Items;
+import me.goost.goostserver.skill.Skills_mana_uses;
 import me.goost.goostserver.skill.particle;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -71,7 +72,7 @@ public class df_skill {
     }
 
     public static void invis(Player player){
-        mana.remove_mana(player.getUniqueId(),30);
+        mana.remove_mana(player.getUniqueId(), Skills_mana_uses.Dark_elf_invis_skill());
         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20, 1),true);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 255),true);
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*3, 2),true);
