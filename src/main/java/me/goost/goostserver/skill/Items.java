@@ -16,11 +16,17 @@ public class Items {
 
 
     // basic skill items
+    // Archer items
     public static ItemStack Archer_invis_book;
 
 
     // skill items
+    //Archer items
+    public static ItemStack Archer_invis2_book;
+
+    // Dark elf items
     public static ItemStack Dark_Elf_invis_book;
+
 
     public static void set_all_items(){
         set_Dark_Elf_items();
@@ -85,8 +91,18 @@ public class Items {
 
         meta2.setLore(Archer_invis_book_lore);
         Archer_invis_book.setItemMeta(meta2);
+        // -------------------------------------------------------------------------
+        Archer_invis2_book = new ItemStack(Material.ENCHANTED_BOOK, 1);
+        ItemMeta meta3 = Archer_invis2_book.getItemMeta();
+        meta3.setDisplayName(ChatColor.YELLOW + "중급:은신");
 
+        List<String> Archer_invis2_book_lore = new ArrayList<String>();
+        Archer_invis2_book_lore.add(ChatColor.BOLD + "궁수:중급 은신스킬");
+        Archer_invis2_book_lore.add(ChatColor.BOLD + "Line 2");
+        Archer_invis2_book_lore.add(ChatColor.BOLD + "Line 3... etc");
 
+        meta3.setLore(Archer_invis2_book_lore);
+        Archer_invis2_book.setItemMeta(meta3);
 
     }
 

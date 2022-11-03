@@ -1,6 +1,5 @@
 package me.goost.goostserver.skill.archer;
 
-import me.goost.goostserver.GoostServer;
 import me.goost.goostserver.player.mana;
 import me.goost.goostserver.skill.Items;
 import me.goost.goostserver.skill.Skills_mana_uses;
@@ -11,7 +10,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -19,8 +17,10 @@ import java.util.UUID;
 public class ac_skill {
 
     public static HashMap<UUID, Long> basicinvis_cooldown = new HashMap<>();
+    public static HashMap<UUID, Long> invis2_cooldown = new HashMap<>();
 
     public static int basicinvis_cooldowntime = 3;
+    public static int invis2_cooldowntime = 3;
 
 
     public static void onPlayerUse(PlayerInteractEvent e){
@@ -71,10 +71,37 @@ public class ac_skill {
     public static void invis(Player player){
         mana.remove_mana(player.getUniqueId(), Skills_mana_uses.Archer_basic_invis_skill());
         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20, 1),true);
+
+        particle.spawn_ball_particle(
+                player.getLocation(),player,
+                Color.fromRGB(121, 219, 118),
+                Color.fromRGB(188, 205, 188),
+                200,0.5f,0.8f,0.5f,1);
+
+    }
+    public static void invis2(Player player){
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20*3, 1),true);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 255),true);
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*3, 2),true);
 
-        particle.spawn_ball_particle(player.getLocation(),player, Color.fromRGB(0, 180, 30), Color.fromRGB(0, 180, 30), 200,0.5f,0.8f,0.5f,1);
-
+        particle.spawn_ball_particle(
+                player.getLocation(),player,
+                Color.fromRGB(11, 1245, 3),
+                Color.fromRGB(8, 156, 3),
+                200,0.5f,0.8f,0.5f,1);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

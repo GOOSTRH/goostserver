@@ -1,11 +1,8 @@
 package me.goost.goostserver;
 
 import me.goost.goostserver.player.*;
-import me.goost.goostserver.player.commands.Job;
+import me.goost.goostserver.player.commands.*;
 import me.goost.goostserver.player.choose_class;
-import me.goost.goostserver.player.commands.comoney;
-import me.goost.goostserver.player.commands.level;
-import me.goost.goostserver.player.commands.test;
 import me.goost.goostserver.skill.Items;
 import me.goost.goostserver.skill.check.check;
 import me.goost.goostserver.skill.check.onground;
@@ -61,10 +58,13 @@ public class GoostServer extends JavaPlugin{
         Bukkit.getPluginManager().registerEvents(new scoreboard(), this);
         Bukkit.getPluginManager().registerEvents(new check(), this);
         Bukkit.getPluginManager().registerEvents(new money(), this);
+        Bukkit.getPluginManager().registerEvents(new coitem(), this);
 
     }
 
+
     private void registerCommands() {
+        Objects.requireNonNull(getCommand("coitem")).setExecutor(new coitem());
         Objects.requireNonNull(getCommand("com")).setExecutor(new comoney());
         Objects.requireNonNull(getCommand("Job")).setExecutor(new Job());
         Objects.requireNonNull(getCommand("level")).setExecutor(new level());

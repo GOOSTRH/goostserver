@@ -19,3 +19,7 @@ commands:
     description: get money for admin
     aliases: com
     usage: /<command>
+  coitem:
+    description: get items for admin
+    aliases: coitem
+    usage: /<command>

@@ -66,23 +66,8 @@ public class health implements Listener{
 
 
     public static void player_respawn(Player player){
-
-        for (ItemStack item : player.getInventory().getContents()) {
-            // go through every slot in player's inventory
-
-            if (item != null) return;
-            //if the item is not null
-
-            assert false;
-            if (item.getType() == Material.TOTEM_OF_UNDYING) {
-                // if player has a TOTEM_OF_UNDYING in the slot ↓
-
-                player.sendMessage("DIED ( saved inventory , used one totem of undying");
-            }
-        }
-
-        player.sendMessage("너죽음");
-        player.teleport(new Location(Bukkit.getWorld("World"), -59,67,8));
+        player.sendMessage(ChatColor.RED+"YOU DIED");
+        player.teleport(new Location(Bukkit.getWorld("World"), -39,120,-48,0,0));
         health.replace(player.getUniqueId(),healthy.get(player.getUniqueId()));
     }
 
