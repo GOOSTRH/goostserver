@@ -39,7 +39,6 @@ public class particle {
                         cancel();
                     }
                     ++i;
-                    Bukkit.broadcastMessage("Second " + i);
                 }
             }.runTaskTimer(GoostServer.getPlugin(), 0L, period);
         }else{ // if the Ring goes down
@@ -62,7 +61,6 @@ public class particle {
                         cancel();
                     }
                     ++i;
-                    Bukkit.broadcastMessage("Second " + i);
                 }
             }.runTaskTimer(GoostServer.getPlugin(), 0L, period);
         }

@@ -4,10 +4,8 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -16,26 +14,25 @@ import java.util.UUID;
 
 
 
-public class choose_class implements Listener {
+public class ChooseJob implements Listener {
 
-    public static HashMap<UUID, Boolean> choosing_class = new HashMap<>();
+    public static HashMap<UUID, Boolean> choosing_job = new HashMap<>();
     public static HashMap<UUID, Boolean> player_ = new HashMap<>();
 
 
-    public static void check_online_player_job(){
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player_.get(player.getUniqueId()) == null || !player_.get(player.getUniqueId()) ){
-                choose_class(player);
-            }
-        }
+    public static void setPlayer_(UUID uuid, Boolean player_){
+        ChooseJob.player_.put(uuid, player_);
     }
 
 
-    @EventHandler
-    public void onplayerjoin(PlayerJoinEvent event){// if player joins server check if player is a 'player' or not
-        final Player player = event.getPlayer();
+    public static void onplayerjoin(PlayerJoinEvent event){
+        check_player_(event.getPlayer());
+    }
+
+    public static void check_player_(Player player){
         if (player_.get(player.getUniqueId()) == null || !player_.get(player.getUniqueId()) ){
-            //if player is not a 'player' (백수
+            // if Player joins server check if Player is a 'Player' or not
+            //if Player is not a 'Player' (백수
             choose_class(player);
         }else{
             player.sendMessage("");
@@ -45,14 +42,9 @@ public class choose_class implements Listener {
     }
 
 
-    public static void repeat(){ // repeated method
-
-    }
-
-
 
     public static void choose_class(Player player){
-        choosing_class.put(player.getUniqueId(),Boolean.TRUE);
+        choosing_job.put(player.getUniqueId(),Boolean.TRUE);
         //archer
         TextComponent archer = new TextComponent("[ARCHER/궁수]");
         archer.setColor(ChatColor.GOLD);

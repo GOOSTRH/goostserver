@@ -1,9 +1,9 @@
 package me.goost.goostserver.skill.dark_elf;
 
-import me.goost.goostserver.player.mana;
 import me.goost.goostserver.skill.Items;
 import me.goost.goostserver.skill.Skills_mana_uses;
 import me.goost.goostserver.skill.particle;
+import me.goost.goostserver.player.mana;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -37,7 +37,7 @@ public class df_skill {
             if(mana.get_mana(player.getUniqueId()) >= 30){
                 if(invis_cooldown.containsKey(uuid)){
 
-                    // when it's *NOT* the first time the player using this skill
+                    // when it's *NOT* the first time the Player using this skill
                     long secondleft = ((invis_cooldown.get(uuid) / 1000) + invis_cooldowntime) - (System.currentTimeMillis() / 1000);
                     // cooldown seconds left for skill
                     if(secondleft > 0){
@@ -49,7 +49,7 @@ public class df_skill {
                         set_invis_Cooldown(player.getUniqueId());
                     }
                 }else{
-                    // when it's the first time the player using this skill
+                    // when it's the first time the Player using this skill
                     invis(player);
                     set_invis_Cooldown(player.getUniqueId());
                 }

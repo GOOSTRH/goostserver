@@ -1,4 +1,4 @@
-package me.goost.goostserver;
+package me.goost.goostserver.Server;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,5 +18,12 @@ public class remove_join_message implements Listener {
         Player p = e.getPlayer();
         e.setQuitMessage("");
 
+    }
+
+    @EventHandler
+    public void first_join(PlayerJoinEvent e) {
+        if(!e.getPlayer().hasPlayedBefore()){
+            e.setJoinMessage(e.getPlayer().getName()+"님(이)가 서버에 처음접속했습니다!");
+        }
     }
 }

@@ -4,6 +4,7 @@ import me.goost.goostserver.player.mana;
 import me.goost.goostserver.skill.Items;
 import me.goost.goostserver.skill.Skills_mana_uses;
 import me.goost.goostserver.skill.particle;
+import me.goost.goostserver.skill.skill_DB;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -34,7 +35,7 @@ public class ac_skill {
             if(mana.get_mana(player.getUniqueId()) >= 30){
                 if(basicinvis_cooldown.containsKey(uuid)){
 
-                    // when it's *NOT* the first time the player using this skill
+                    // when it's *NOT* the first time the Player using this skill
                     long secondleft = ((basicinvis_cooldown.get(uuid) / 1000) + basicinvis_cooldowntime) - (System.currentTimeMillis() / 1000);
                     // cooldown seconds left for skill
                     if(secondleft > 0){
@@ -46,7 +47,7 @@ public class ac_skill {
                         set_invis_Cooldown(player.getUniqueId());
                     }
                 }else{
-                    // when it's the first time the player using this skill
+                    // when it's the first time the Player using this skill
                     invis(player);
                     set_invis_Cooldown(player.getUniqueId());
                 }
@@ -71,7 +72,7 @@ public class ac_skill {
     public static void invis(Player player){
         mana.remove_mana(player.getUniqueId(), Skills_mana_uses.Archer_basic_invis_skill());
         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20, 1),true);
-
+        skill_DB.invis_sys(player,1);
         particle.spawn_ball_particle(
                 player.getLocation(),player,
                 Color.fromRGB(121, 219, 118),

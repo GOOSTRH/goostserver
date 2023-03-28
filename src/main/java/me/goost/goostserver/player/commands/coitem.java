@@ -30,9 +30,9 @@ public class coitem implements CommandExecutor, Listener {
             Inventory gui = Bukkit.createInventory(player, 9, ChatColor.AQUA + "Custom GUI");
 
             //Menu Options(Items)
-            ItemStack suicide = new ItemStack(Material.TNT); //Kills the player
+            ItemStack suicide = new ItemStack(Material.TNT); //Kills the Player
             ItemStack feed = new ItemStack(Material.BREAD); //Fills the hunger bar
-            ItemStack sword = new ItemStack(Material.DIAMOND_SWORD); //Gives the player a weapon
+            ItemStack sword = new ItemStack(Material.DIAMOND_SWORD); //Gives the Player a weapon
 
             //Edit the items
             ItemMeta suicide_meta = suicide.getItemMeta();

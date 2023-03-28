@@ -1,6 +1,7 @@
 package me.goost.goostserver.player;
 
-import me.lemonypancakes.bukkit.common.actionbarapi.ActionBarAPI;
+
+import me.lemonypancakes.bukkit.api.actionbar.ActionBarAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -21,12 +22,15 @@ public class show_stat implements Listener {
                         String.valueOf(Math.round(health.health.get(player.getUniqueId()))) +
                         "/" +
                         Math.round((health.healthy.get(player.getUniqueId())))+
-                        "❤"+"        "+
-                        ChatColor.GREEN+
-                        def.get_def(player.getUniqueId()) +"🛡          "+
+                        " [HP]"+"             "+
+
                         ChatColor.BLUE+
-                        mana.get_mana(player.getUniqueId())+"/"+mana.get_manam(player.getUniqueId())+" ⁂"
+                        mana.get_mana(player.getUniqueId())+"/"+mana.get_manam(player.getUniqueId())+" [MP]"
 
         );
+/* Armor
+        ChatColor.GREEN+
+                def.get_def(Player.getUniqueId()) +"[AR]          "+
+  */
     }
 }

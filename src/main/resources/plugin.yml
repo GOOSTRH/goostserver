@@ -1,25 +1,19 @@
 name: goostserver
-version: '${project.version}'
+version: 0.010
 main: me.goost.goostserver.GoostServer
-api-version: 1.19
+
+depend: [ProtocolLib]
+
 commands:
-  Job:
+  job:
     description: Sets your job to
-    aliases: job
-    usage: /<command>
-  level:
-    description: character level
-    aliases: lev
-    usage: /<command>
   test:
     description: testing things
-    aliases: tst
-    usage: /<command>
   com:
     description: get money for admin
-    aliases: com
-    usage: /<command>
   coitem:
     description: get items for admin
-    aliases: coitem
-    usage: /<command>
+  col:
+    description: character level
+  staff:
+    description: staffcommand

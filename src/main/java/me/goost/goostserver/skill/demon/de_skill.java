@@ -12,7 +12,7 @@ public class de_skill {
     private static HashMap<UUID, Boolean> sneakjump_cooldown = new HashMap<>();
 
     public static void demon_skill_check(Player player,UUID uuid){
-        // if the player is sneaking and on ground once and jumping
+        // if the Player is sneaking and on ground once and jumping
         if (player.isSneaking() && !player.isOnGround() && onground.groundcheck(uuid)){
             if(onground.groundcheck(uuid)){
                 de_skill.sneakjump_cooldown.replace(player.getUniqueId(),onground.groundcheck(uuid));
@@ -35,7 +35,7 @@ public class de_skill {
 
             Location loc = player.getLocation();
 
-            //Vector v = player.getLocation().getDirection();
+            //Vector v = Player.getLocation().getDirection();
             Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(64,64,64), 1);
             loc.getWorld().spawnParticle(Particle.REDSTONE, loc.getX(), loc.getY(), loc.getZ(), 5,0.3,0,0.3,dustOptions);
 

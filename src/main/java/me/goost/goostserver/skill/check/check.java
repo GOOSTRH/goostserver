@@ -5,7 +5,6 @@ import me.goost.goostserver.skill.archer.ac_skill;
 import me.goost.goostserver.skill.dark_elf.df_skill;
 import me.goost.goostserver.skill.demon.de_skill;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -42,7 +41,7 @@ public class check implements Listener {
                 UUID uuid = e.getPlayer().getUniqueId();
 
                 if(Objects.equals(Job.Job.get(player.getUniqueId()), "demon")){
-                    //de_skill.demon_skill_check(player,uuid);
+                    //de_skill.demon_skill_check(Player,uuid);
                 }else if(Objects.equals(Job.Job.get(player.getUniqueId()), "dark_elf")){
                     df_skill.onPlayerUse(e);
                 }else if(Objects.equals(Job.Job.get(player.getUniqueId()), "archer")){
