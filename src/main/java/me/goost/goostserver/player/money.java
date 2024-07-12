@@ -1,6 +1,6 @@
 package me.goost.goostserver.player;
 
-import me.goost.goostserver.Server.scoreboard;
+import me.goost.goostserver.server.scoreboard;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;

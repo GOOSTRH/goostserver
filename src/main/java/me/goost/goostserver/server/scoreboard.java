@@ -1,4 +1,4 @@
-package me.goost.goostserver.Server;
+package me.goost.goostserver.server;
 
 import me.goost.goostserver.player.level;
 import me.goost.goostserver.player.money;
@@ -32,7 +32,7 @@ public class scoreboard implements Listener {
 
 
             // get level percentage
-            int levelPer = level.get_percentage(player);
+            double levelPer = level.getPercentage(player);
             // return ex; 56% round up, 78% round up, 92% round down
             // make it 5 for 1 bar
             double bar = (double) levelPer / 10; // 5.6 , 7.8 , 9.2
@@ -76,7 +76,7 @@ public class scoreboard implements Listener {
             // White Bold Time:
 
             Score s4 = objective.getScore(ChatColor.WHITE+""+ ChatColor.BOLD+
-                    "현제레벨: ["+level.get_percentage(player)+"%]"+ChatColor.RESET+"["+ChatColor.BLUE+BlueBar+ChatColor.GRAY+GrayBar+ChatColor.WHITE + "]");
+                    "현제레벨: ["+level.getPercentage(player)+"%]"+ChatColor.RESET+"["+ChatColor.BLUE+BlueBar+ChatColor.GRAY+GrayBar+ChatColor.WHITE + "]");
             // White Bold current level: [??%],[Blue,BlueBar,Gray,Graybar]
 
             s0.setScore(6);
@@ -90,7 +90,7 @@ public class scoreboard implements Listener {
         }
     }
 
-    public static void always_check(){
+    public static void alwaysCheck(){
 
         int tim = (int) Objects.requireNonNull(Bukkit.getWorld("world")).getTime();
         //get cur time

@@ -1,4 +1,4 @@
-package me.goost.goostserver.Server;
+package me.goost.goostserver.server;
 
 import net.kyori.adventure.text.ComponentLike;
 import org.bukkit.Bukkit;

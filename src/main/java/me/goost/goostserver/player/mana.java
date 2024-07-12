@@ -13,14 +13,14 @@ public class mana {
     private static HashMap<UUID, Float> mana = new HashMap<>();
     private static HashMap<UUID, Float> manam = new HashMap<>();
 
-    public static Float get_mana(UUID uuid){return mana.get(uuid);};
-    public static Float get_manam(UUID uuid){return manam.get(uuid);};
+    public static Float getMana(UUID uuid){return mana.get(uuid);};
+    public static Float getManam(UUID uuid){return manam.get(uuid);};
 
-    public static void set_mana(UUID uuid, float num){mana.put(uuid,num);};
-    public static void set_manam(UUID uuid,float num){manam.put(uuid,num);};
+    public static void setMana(UUID uuid, float num){mana.put(uuid,num);};
+    public static void setManam(UUID uuid, float num){manam.put(uuid,num);};
 
-    public static void add_mana(UUID uuid,float num){mana.replace(uuid,(get_mana(uuid)+num));};
-    public static void remove_mana(UUID uuid,float num){mana.replace(uuid,(get_mana(uuid)-num));};
+    public static void addMana(UUID uuid, float num){mana.replace(uuid,(getMana(uuid)+num));};
+    public static void removeMana(UUID uuid, float num){mana.replace(uuid,(getMana(uuid)-num));};
 
     public static void repeat(){
         Plugin plugin = GoostServer.plugin;
@@ -31,12 +31,12 @@ public class mana {
             public void run() {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     UUID uuid = player.getUniqueId();
-                    if(get_mana(uuid) + amount <= get_manam(uuid)){
-                        add_mana(uuid, amount);
-                        show_stat.showstat(player);
+                    if(getMana(uuid) + amount <= getManam(uuid)){
+                        addMana(uuid, amount);
+                        ShowStats.showstat(player);
                     }else{
-                        set_mana(uuid, get_manam(uuid));
-                        show_stat.showstat(player);
+                        setMana(uuid, getManam(uuid));
+                        ShowStats.showstat(player);
                     }
                 }
             }
@@ -44,11 +44,11 @@ public class mana {
 
     }
 
-    public static void mana_on_tick(){
+    public static void manaOnTick(){
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
-            if(get_mana(uuid) > get_manam(uuid)){
-                set_mana(uuid,get_manam(uuid));
+            if(getMana(uuid) > getManam(uuid)){
+                setMana(uuid, getManam(uuid));
             }
         }
     }

@@ -2,7 +2,6 @@ package me.goost.goostserver.player.commands;
 
 
 import me.goost.goostserver.player.level;
-import me.goost.goostserver.player.money;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,13 +17,13 @@ public class colevel implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if(args[0].equals("check")){player.sendMessage(""+level.GetLevel(player.getUniqueId()));} // check my level
+        if(args[0].equals("check")){player.sendMessage(""+level.getLevel(player.getUniqueId()));} // check my level
 
         if(args[0].equals("set")){
             if (args[1] == null || args[1].equals("")) {
                 player.sendMessage("/level ");
             }else if(Integer.parseInt( args[1]) >= 0){ // if the amount is bigger than or equal to 0 then set the level to that amount
-                level.SetLevel(player.getUniqueId(),Double.parseDouble(args[1]));
+                level.setLevel(player.getUniqueId(),Integer.parseInt(args[1]));
             }
         }
 

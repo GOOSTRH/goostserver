@@ -9,18 +9,21 @@ public class PlayerStats {
     private String class_;
     private int bank;
     private int cash;
-    private double level;
+    private int level;
+    private double experience;
     private String storyLine;
     private Date lastLogin;
     private Date lastLogout;
 
-    public PlayerStats(String uuid, Boolean player, String class_, int bank, int cash, double level, String storyLine, Date lastLogin, Date lastLogout) {
+    public PlayerStats(String uuid, Boolean player, String class_, int bank, int cash, int level, double experience, String storyLine, Date lastLogin, Date lastLogout) {
         this.uuid = uuid;
         this.player = player;
         this.class_ = class_;
+        // the reason the 'class' is 'class_' is because this class will call something else
         this.bank = bank;
         this.cash = cash;
         this.level = level;
+        this.experience = experience;
         this.storyLine = storyLine;
         this.lastLogin = lastLogin;
         this.lastLogout = lastLogout;
@@ -63,13 +66,16 @@ public class PlayerStats {
         this.cash = cash;
     }
 
-    public double getLevel() {
+    public int getLevel() {
         return level;
     }
-    public void setLevel(double level) {
-        this.level = level;
+    public void setLevel(int level) {this.level = level;}
+    public double getExperience() {
+        return experience;
     }
-
+    public void setExperience(double experience) {
+        this.experience = experience;
+    }
     public String getStoryLine() {
         return storyLine;
     }

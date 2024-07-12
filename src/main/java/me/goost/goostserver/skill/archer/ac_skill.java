@@ -32,7 +32,7 @@ public class ac_skill {
         UUID uuid = player.getUniqueId();
 
         if(player.getItemInHand().equals(Items.Archer_invis_book)){// 은신스킬
-            if(mana.get_mana(player.getUniqueId()) >= 30){
+            if(mana.getMana(player.getUniqueId()) >= 30){
                 if(basicinvis_cooldown.containsKey(uuid)){
 
                     // when it's *NOT* the first time the Player using this skill
@@ -70,7 +70,7 @@ public class ac_skill {
     }
 
     public static void invis(Player player){
-        mana.remove_mana(player.getUniqueId(), Skills_mana_uses.Archer_basic_invis_skill());
+        mana.removeMana(player.getUniqueId(), Skills_mana_uses.Archer_basic_invis_skill());
         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20, 1),true);
         skill_DB.invis_sys(player,1);
         particle.spawn_ball_particle(

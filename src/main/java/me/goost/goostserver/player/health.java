@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -22,136 +21,62 @@ public class health implements Listener{
     //static HashMap<UUID, Double> addition_health_effect = new HashMap<>();
     //static HashMap<UUID, Double> addition_health_Item = new HashMap<>();
 
-    static HashMap<UUID, Double> healthscale = new HashMap<>();
+    static HashMap<UUID, Double> healthScale = new HashMap<>();
 
 
 
-    public static void check_player_health_always(){
-        for (Player player : Bukkit.getOnlinePlayers()) { // loop through all players
+    public static void checkPlayerHealthAlways(){
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            // loop through all players
 
-            if (healthy.get(player.getUniqueId()) == null) return; // check if Player has a max health value , if non return
+            if (healthy.get(player.getUniqueId()) == null) return;
+            // check if Player has a max health value , if non return
 
-            double extra_health_number = 20.0; // value that will be set as extra health value
+            double extra_health_number = 20.0;
+            // value that will be set as extra health value
 
             for (double i = healthy.get(player.getUniqueId()); i >= 101; i -= 100) {
-                extra_health_number += 2.0; // extra_health_number = extra heart ex. if 101-200 = 11 heart
+                extra_health_number += 2.0;
+                // extra_health_number = extra heart ex. if 101-200 = 11 heart
             }
 
-            if ( healthy.get(player.getUniqueId()) < 100 ){ // if the Player's max health is lower than 100
+            if ( healthy.get(player.getUniqueId()) < 100 ){
+                // if the Player's max health is lower than 100
                 extra_health_number = (healthy.get(player.getUniqueId())/5);
             }
 
-            when_player_dies(player);
+            whenPlayerDies(player);
             // if the Player dies
 
-            when_player_alive(player, extra_health_number);
+            whenPlayerAlive(player, extra_health_number);
             // when Player is alive
         }
     }
 
-    private static void when_player_dies(Player player){
+    private static void whenPlayerDies(Player player){
         if (health.get(player.getUniqueId()) < 1.0 ){
-            player_respawn(player);
+            playerRespawn(player);
         }
     }
 
-    private static void when_player_alive(Player player,double extra_health_number){
+    private static void whenPlayerAlive(Player player, double extra_health_number){
         if (health.get(player.getUniqueId()) >= 1){
-            healthscale.replace(player.getUniqueId(), extra_health_number);
+            healthScale.replace(player.getUniqueId(), extra_health_number);
             player.setHealthScale(extra_health_number);
             player.setHealth((health.get(player.getUniqueId()) / healthy.get(player.getUniqueId())) * 20);
         }
     }
 
 
-    public static void player_respawn(Player player){
+    public static void playerRespawn(Player player){
         player.sendMessage(ChatColor.RED+"YOU DIED");
         player.teleport(new Location(Bukkit.getWorld("World"), -39,120,-48,0,0));
         health.replace(player.getUniqueId(),healthy.get(player.getUniqueId()));
     }
 
 
-    public static void check_player(Player player){
-        // check Player's class to give the right health
-        // right after choosing class
-        //궁수/archer		마법사/magician		다크엘프/dark_elf		검사/sword_man
-        if(Job.Job.get(player.getUniqueId()) == null ){
-
-            healthy.put(player.getUniqueId(),1.0);
-            health.put(player.getUniqueId(),1.0);
-            healthscale.put(player.getUniqueId(),2.0);
-
-            def.set_def(player.getUniqueId(),1);
-            mana.set_mana(player.getUniqueId(),1);
-            mana.set_manam(player.getUniqueId(),1);
-
-        }else if(Job.Job.get(player.getUniqueId()).equals("백수") ){
-
-            healthy.put(player.getUniqueId(),1.0);
-            health.put(player.getUniqueId(),1.0);
-            healthscale.put(player.getUniqueId(),1.0);
-
-            def.set_def(player.getUniqueId(),0);
-            mana.set_mana(player.getUniqueId(),0);
-            mana.set_manam(player.getUniqueId(),0);
-
-        }else if(Job.Job.get(player.getUniqueId()).equals("archer") ){
-
-            healthy.put(player.getUniqueId(),100.0);
-            health.put(player.getUniqueId(),100.0);
-            healthscale.put(player.getUniqueId(),20.0);
-
-            def.set_def(player.getUniqueId(),100);
-            mana.set_mana(player.getUniqueId(),200);
-            mana.set_manam(player.getUniqueId(),200);
-
-        }else if(Job.Job.get(player.getUniqueId()).equals("dragon") ){
-
-            healthy.put(player.getUniqueId(),600.0);
-            health.put(player.getUniqueId(),600.0);
-            healthscale.put(player.getUniqueId(),20.0);
-
-            def.set_def(player.getUniqueId(),400);
-            mana.set_mana(player.getUniqueId(),800);
-            mana.set_manam(player.getUniqueId(),800);
-
-        }else if(Job.Job.get(player.getUniqueId()).equals("dark_elf") ){
-
-            healthy.put(player.getUniqueId(),200.0);
-            health.put(player.getUniqueId(),200.0);
-            healthscale.put(player.getUniqueId(),20.0);
-
-            def.set_def(player.getUniqueId(),150);
-            mana.set_mana(player.getUniqueId(),800);
-            mana.set_manam(player.getUniqueId(),800);
-
-        }else if(Job.Job.get(player.getUniqueId()).equals("sword_man") ){
-
-            healthy.put(player.getUniqueId(),250.0);
-            health.put(player.getUniqueId(),250.0);
-            healthscale.put(player.getUniqueId(),20.0);
-
-            def.set_def(player.getUniqueId(),150);
-            mana.set_mana(player.getUniqueId(),150);
-            mana.set_manam(player.getUniqueId(),800);
-
-        }else if(Job.Job.get(player.getUniqueId()).equals("demon") ){
-
-            healthy.put(player.getUniqueId(),500.0);
-            health.put(player.getUniqueId(),500.0);
-            healthscale.put(player.getUniqueId(),20.0);
-
-            def.set_def(player.getUniqueId(),350);
-            mana.set_mana(player.getUniqueId(),500);
-            mana.set_manam(player.getUniqueId(),500);
-
-        }
-    }
-
-
-
     @EventHandler
-    public void playerheal(EntityRegainHealthEvent event){
+    public void playerHeal(EntityRegainHealthEvent event){
         Entity e = event.getEntity();
         if(e instanceof Player){
             // if entity is a Player
@@ -165,19 +90,7 @@ public class health implements Listener{
             event.setCancelled(true);
         }
     }
-
-
-    public static void onplayerjoin(PlayerJoinEvent event){check_player(event.getPlayer());}
-
 }
-
-
-
-
-
-
-
-
 
 
 

@@ -1,4 +1,4 @@
-package me.goost.goostserver.Server;
+package me.goost.goostserver.server;
 
 
 import me.goost.goostserver.GoostServer;
@@ -10,13 +10,13 @@ public class CustomRecipe {
 
 
     public static void createRecipe(){
-        ItemStack bottle = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
+        ItemStack bottle = new ItemStack(Material.EXPERIENCE_BOTTLE,1);
 
         ShapedRecipe expBottle = new ShapedRecipe(bottle);
 
         expBottle.shape("*%*","%B%","*%*");
 
-        expBottle.setIngredient('*', Material.INK_SAC, 2);
+        expBottle.setIngredient('*', Material.INK_SAC);
         expBottle.setIngredient('%', Material.SUGAR);
         expBottle.setIngredient('B', Material.GLASS_BOTTLE);
 

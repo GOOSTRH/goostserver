@@ -1,25 +1,24 @@
-package me.goost.goostserver.Server;
+package me.goost.goostserver.server;
 
 import me.goost.goostserver.SQLDB.Database;
-import me.goost.goostserver.player.ChooseJob;
-import me.goost.goostserver.player.health;
-import me.goost.goostserver.player.level;
-import me.goost.goostserver.player.money;
+import me.goost.goostserver.player.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 
 
-public class on_player_join implements Listener {
+public class onPlayerJoin implements Listener {
     @EventHandler
     public void onplayerjoin(PlayerJoinEvent e) {
 
+        checkPlayer.checkPlayer(e.getPlayer());
         Database.loadDataBasePlayer(e.getPlayer());
-        health.onplayerjoin(e);
         money.onplayerjoin(e);
         ChooseJob.onplayerjoin(e);
         level.onplayerjoin(e);
         e.getPlayer().sendMessage("Ver 0.010");
+
+
     }
 }

@@ -1,6 +1,7 @@
 name: goostserver
 version: 0.010
 main: me.goost.goostserver.GoostServer
+api-version: '1.19'
 
 depend: [ProtocolLib]
 

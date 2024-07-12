@@ -25,11 +25,11 @@ public class Items {
     public static ItemStack Archer_invis2_book;
 
     // Dark elf items
-    public static ItemStack Dark_Elf_invis_book;
+    public static ItemStack Assassin_invis_book;
 
 
     public static void set_all_items(){
-        set_Dark_Elf_items();
+        set_Assassin_items();
         set_Archer_items();
         set_Short_knife();
     }
@@ -52,9 +52,9 @@ public class Items {
         Short_knife.setItemMeta(meta);
     }
 
-    public static void set_Dark_Elf_items(){
-        Dark_Elf_invis_book = new ItemStack(Material.ENCHANTED_BOOK, 1);
-        ItemMeta meta = Dark_Elf_invis_book.getItemMeta();
+    public static void set_Assassin_items(){
+        Assassin_invis_book = new ItemStack(Material.ENCHANTED_BOOK, 1);
+        ItemMeta meta = Assassin_invis_book.getItemMeta();
         meta.setDisplayName(ChatColor.YELLOW + "은신");
 
         List<String> Dark_Elf_invis_book_lore = new ArrayList<String>();
@@ -63,7 +63,7 @@ public class Items {
         Dark_Elf_invis_book_lore.add(ChatColor.BOLD + "Line 3... etc");
 
         meta.setLore(Dark_Elf_invis_book_lore);
-        Dark_Elf_invis_book.setItemMeta(meta);
+        Assassin_invis_book.setItemMeta(meta);
 
     }
 

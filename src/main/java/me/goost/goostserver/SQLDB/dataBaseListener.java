@@ -27,7 +27,7 @@ public class dataBaseListener implements Listener {
             PlayerStats stats = plugin.getDatabase().findPlayerStatsByUUID(player.getUniqueId().toString());
             //if somethings goes wrong here add this. before plugin
             if (stats == null){
-                stats = new PlayerStats(player.getUniqueId().toString(), false,"",0,0,0.0,"",new Date(),new Date());
+                stats = new PlayerStats(player.getUniqueId().toString(), false,"",0,0,0,0.0,"",new Date(),new Date());
                 plugin.getDatabase().SetPlayerStats(stats);
 
             }else{
@@ -46,7 +46,7 @@ public class dataBaseListener implements Listener {
 
             if (stats == null){
                 // System.out.println("2/0"); debug
-                stats = new PlayerStats(player.getUniqueId().toString(), true,str,0,0,0.0,"",new Date(),new Date());
+                stats = new PlayerStats(player.getUniqueId().toString(), true,str,0,0,0,0.0,"",new Date(),new Date());
                 plugin.getDatabase().SetPlayerStats(stats);
 
             }else{
@@ -55,6 +55,7 @@ public class dataBaseListener implements Listener {
                         ,stats.getBank()
                         ,stats.getCash()
                         ,stats.getLevel()
+                        ,stats.getExperience()
                         ,stats.getStoryLine()
                         ,stats.getLastLogin()
                         ,stats.getLastLogout());

@@ -33,8 +33,8 @@ public class df_skill {
 
         UUID uuid = player.getUniqueId();
 
-        if(player.getItemInHand().equals(Items.Dark_Elf_invis_book)){// 은신스킬
-            if(mana.get_mana(player.getUniqueId()) >= 30){
+        if(player.getItemInHand().equals(Items.Assassin_invis_book)){// 은신스킬
+            if(mana.getMana(player.getUniqueId()) >= 30){
                 if(invis_cooldown.containsKey(uuid)){
 
                     // when it's *NOT* the first time the Player using this skill
@@ -72,7 +72,7 @@ public class df_skill {
     }
 
     public static void invis(Player player){
-        mana.remove_mana(player.getUniqueId(), Skills_mana_uses.Dark_elf_invis_skill());
+        mana.removeMana(player.getUniqueId(), Skills_mana_uses.Dark_elf_invis_skill());
         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20, 1),true);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 255),true);
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*3, 2),true);

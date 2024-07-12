@@ -1,6 +1,6 @@
 package me.goost.goostserver.SQLDB;
 
-import me.goost.goostserver.Server.staffCommands;
+import me.goost.goostserver.server.staffCommands;
 import me.goost.goostserver.player.ChooseJob;
 import me.goost.goostserver.player.commands.Job;
 import me.goost.goostserver.player.level;
@@ -81,7 +81,8 @@ public class Database {
                 "class_ varchar(20), " +
                 "bank int, " +
                 "cash int, " +
-                "level double, " +
+                "level int, " +
+                "experience double," +
                 "storyLine varchar(50), " +
                 "lastLogin DATE, " +
                 "lastLogout DATE)";
@@ -110,13 +111,14 @@ public class Database {
             String class_ = results.getString("class_");
             int bank = results.getInt("bank");
             int cash = results.getInt("cash");
-            double level = results.getDouble("level");
+            int level = results.getInt("level");
+            double experience = results.getDouble("experience");
             String storyLine = results.getString("storyLine");
             Date lastLogin = results.getDate("lastLogin");
             Date lastLogout = results.getDate("lastLogout");
 
 
-            playerStats = new PlayerStats(uuid, player, class_, bank, cash, level, storyLine, lastLogin, lastLogout);
+            playerStats = new PlayerStats(uuid, player, class_, bank, cash, level, experience, storyLine, lastLogin, lastLogout);
 
             statement.close();
 
@@ -130,17 +132,18 @@ public class Database {
     public void SetPlayerStats(PlayerStats stats) throws SQLException{
 
         PreparedStatement statement = getConnection()
-                .prepareStatement("INSERT INTO player_stats(uuid, Player, class_, bank, cash, level, storyLine, lastLogin, lastLogout) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                .prepareStatement("INSERT INTO player_stats(uuid, Player, class_, bank, cash, level, experience, storyLine, lastLogin, lastLogout) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         statement.setString(1, stats.getUuid());
         statement.setBoolean(2, stats.getPlayer());
         statement.setString(3, stats.getClass_());
         statement.setInt(4, stats.getBank());
         statement.setInt(5, stats.getCash());
-        statement.setDouble(6, stats.getLevel());
-        statement.setString(7, stats.getStoryLine());
-        statement.setDate(8, new Date(stats.getLastLogin().getTime()));
-        statement.setDate(9, new Date(stats.getLastLogout().getTime()));
+        statement.setInt(6, stats.getLevel());
+        statement.setDouble(7, stats.getExperience());
+        statement.setString(8, stats.getStoryLine());
+        statement.setDate(9, new Date(stats.getLastLogin().getTime()));
+        statement.setDate(10, new Date(stats.getLastLogout().getTime()));
 
         statement.executeUpdate();
 
@@ -149,29 +152,30 @@ public class Database {
     }
 
     public void updatePlayerStats(PlayerStats stats) throws SQLException{
-        System.out.println("Working1");
+
         PreparedStatement statement = getConnection()
-                .prepareStatement("UPDATE player_stats SET Player = ? , class_ = ?, bank = ?, cash = ?, level = ?, storyLine = ?, lastLogin = ?, lastLogout = ?");
+                .prepareStatement("UPDATE player_stats SET Player = ? , class_ = ?, bank = ?, cash = ?, level = ?, experience = ?, storyLine = ?, lastLogin = ?, lastLogout = ?");
 
         statement.setBoolean(1, stats.getPlayer());
         statement.setString(2, stats.getClass_());
         statement.setInt(3, stats.getBank());
         statement.setInt(4, stats.getCash());
         statement.setDouble(5, stats.getLevel());
-        statement.setString(6, stats.getStoryLine());
-        statement.setDate(7, new Date(stats.getLastLogin().getTime()));
-        statement.setDate(8, new Date(stats.getLastLogout().getTime()));
+        statement.setDouble(6, stats.getExperience());
+        statement.setString(7, stats.getStoryLine());
+        statement.setDate(8, new Date(stats.getLastLogin().getTime()));
+        statement.setDate(9, new Date(stats.getLastLogout().getTime()));
 
         statement.executeUpdate();
 
         statement.close();
 
         updateIngameWithDatabase(stats);
-        System.out.println("Working2");
+
     }
 
     public static void updateIngameWithDatabase(PlayerStats stats){
-        System.out.println("Working3");
+
         UUID uuid = UUID.fromString(stats.getUuid());
 
         if(stats.getPlayer()){
@@ -183,11 +187,12 @@ public class Database {
 
         money.SetBank(uuid, stats.getBank());
         money.SetCash(uuid, stats.getCash());
-        level.SetLevel(uuid, stats.getLevel());
+        level.setLevel(uuid, stats.getLevel());
+
         staffCommands.SetStoryLine(uuid, stats.getStoryLine());
         staffCommands.SetlastLoginDate(uuid, stats.getLastLogin());
         staffCommands.SetlastLogoutDate(uuid, stats.getLastLogout());
-        System.out.println("Working4");
+
     }
 
 
