@@ -1,17 +1,19 @@
 package me.goost.goostserver.player;
 
-
-import me.lemonypancakes.bukkit.api.actionbar.ActionBarAPI;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-import java.util.UUID;
+
 
 
 public class ShowStats implements Listener {
+
+
     public static void showstattick() {
         for (Player player : Bukkit.getOnlinePlayers()) { // loop through all players
             showstat(player); // show stat
@@ -19,8 +21,41 @@ public class ShowStats implements Listener {
     }
 
     public static void showstat(Player player){
-        ActionBarAPI.sendMessage(player,
-                ChatColor.RED +
+        String message = """
+                    ChatColor.RED +
+                    String.valueOf(Math.round(health.health.get(player.getUniqueId()))) +
+                    "/" +
+                    Math.round((health.healthy.get(player.getUniqueId())))+
+                    " [HP]"+"             "+
+
+                    ChatColor.BLUE+
+                    mana.getMana(player.getUniqueId())+"/"+mana.getManam(player.getUniqueId())+" [MP]\"
+                    """;
+
+
+        TextComponent HPComponent = new TextComponent(
+                Math.round(health.health.get(player.getUniqueId()))
+                        + "/"
+                        + Math.round((health.healthy.get(player.getUniqueId())))
+                        +" [HP]"+"             ");
+
+        HPComponent.setColor(ChatColor.RED);
+
+        TextComponent MPComponent = new TextComponent(
+                mana.getMana(player.getUniqueId())
+                +"/"
+                +mana.getManam(player.getUniqueId())
+                +" [MP]");
+        MPComponent.setColor(ChatColor.BLUE);
+
+        TextComponent FullComponent = new TextComponent();
+        FullComponent.addExtra(HPComponent);
+        FullComponent.addExtra(MPComponent);
+
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, FullComponent);
+
+        /*ActionBarAPI.sendMessage(player,
+                        ChatColor.RED +
                         String.valueOf(Math.round(health.health.get(player.getUniqueId()))) +
                         "/" +
                         Math.round((health.healthy.get(player.getUniqueId())))+
@@ -29,10 +64,7 @@ public class ShowStats implements Listener {
                         ChatColor.BLUE+
                         mana.getMana(player.getUniqueId())+"/"+mana.getManam(player.getUniqueId())+" [MP]"
 
-        );
-
-
-
+        );*/
 /* Armor
         ChatColor.GREEN+
                 def.get_def(Player.getUniqueId()) +"[AR]          "+

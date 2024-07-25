@@ -49,11 +49,11 @@ public class staffCommands implements CommandExecutor {
                     PrintStroyLine(target.getUniqueId());
                     break;
                 case "lastLogin":
-                    player.sendMessage((ComponentLike) GetlastLoginDate(target.getUniqueId()));
+                    player.sendMessage(String.valueOf((ComponentLike) GetlastLoginDate(target.getUniqueId())));
                     PrintlastLoginDate(target.getUniqueId());
                     break;
                 case "lastLogout":
-                    player.sendMessage((ComponentLike) GetlastLogoutDate(target.getUniqueId()));
+                    player.sendMessage(String.valueOf((ComponentLike) GetlastLogoutDate(target.getUniqueId())));
                     PrintlastLogoutDate(target.getUniqueId());
                     break;
             }
