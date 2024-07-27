@@ -1,6 +1,5 @@
 package me.goost.goostserver.player;
 
-import me.goost.goostserver.server.scoreboard;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -17,20 +16,16 @@ public class money implements Listener {
 
     public static void SetBank(UUID uuid, int num){
         bank.put(uuid,num);
-        scoreboard.show();
     };
     public static void SetCash(UUID uuid, int num) {
         cash.put(uuid,num);
-        scoreboard.show();
     };
 
     public static void AddBank(UUID uuid, int num){
         bank.put(uuid, GetBank(uuid)+num);
-        scoreboard.show();
     };
     public static void AddCash(UUID uuid, int num){
         cash.put(uuid, GetCash(uuid)+num);
-        scoreboard.show();
     };
 
     public static void setmoneyforfirsttimer(UUID uuid){

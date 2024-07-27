@@ -19,3 +19,7 @@ commands:
     description: character level
   staff:
     description: staffcommand
+  showjob:
+    description: showjobs
+  coentity:
+    description: spawn entity

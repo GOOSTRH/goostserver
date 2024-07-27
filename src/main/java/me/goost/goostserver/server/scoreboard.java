@@ -23,11 +23,12 @@ public class scoreboard implements Listener {
             UUID uuid = player.getUniqueId();
 
             ScoreboardManager manager = Bukkit.getScoreboardManager();
+            assert manager != null;
             Scoreboard scoreboard = manager.getNewScoreboard();
 
             Objective objective = scoreboard.registerNewObjective("Sidebar_Info", "dummy");
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-            objective.setDisplayName( ChatColor.BLUE + "" + ChatColor.BOLD + "미정이서버");
+            objective.setDisplayName( ChatColor.BLUE + "" + ChatColor.BOLD + "LCBRK");
 
 
 
@@ -49,7 +50,7 @@ public class scoreboard implements Listener {
                 }else if(bar >= 0.5){
                     BlueBar.append("|");
                     bar-=0.5;
-                }else if(bar < 0.5){
+                }else {
                     bar = 0;
                 }
             }
@@ -60,23 +61,23 @@ public class scoreboard implements Listener {
             }
 
             Score s0 = objective.getScore(ChatColor.GOLD+""+ChatColor.BOLD+
-                    "은행: ₩" + ChatColor.GREEN + money.GetBank(uuid));
+                    "Bank: $" + ChatColor.GREEN + money.GetBank(uuid));
             // Gold Bold bank: , Green Bold Money
 
             Score s1 = objective.getScore(ChatColor.GOLD+""+ChatColor.BOLD+
-                    "소지금액: ₩" + ChatColor.GREEN + money.GetCash(uuid));
+                    "Cash: $" + ChatColor.GREEN + money.GetCash(uuid));
             // Gold Bold cash: , Green Bold Money
 
             Score s2 = objective.getScore(ChatColor.WHITE+""+ChatColor.BOLD+
-                    "현재플래이어수: " + Bukkit.getServer().getOnlinePlayers().size());
+                    "Online Player: " + Bukkit.getServer().getOnlinePlayers().size());
             // White Bold Player count:
 
             Score s3 = objective.getScore(ChatColor.WHITE+""+ ChatColor.BOLD+
-                    "현재시간: "+ChatColor.YELLOW+show_time);
+                    "Time: "+ChatColor.YELLOW+show_time);
             // White Bold Time:
 
             Score s4 = objective.getScore(ChatColor.WHITE+""+ ChatColor.BOLD+
-                    "현제레벨: ["+level.getPercentage(player)+"%]"+ChatColor.RESET+"["+ChatColor.BLUE+BlueBar+ChatColor.GRAY+GrayBar+ChatColor.WHITE + "]");
+                    "Level: ["+level.getPercentage(player)+"%]"+ChatColor.RESET+"["+ChatColor.BLUE+BlueBar+ChatColor.GRAY+GrayBar+ChatColor.WHITE + "]");
             // White Bold current level: [??%],[Blue,BlueBar,Gray,Graybar]
 
             s0.setScore(6);

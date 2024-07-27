@@ -2,17 +2,12 @@ package me.goost.goostserver.player;
 
 import me.goost.goostserver.GoostServer;
 
-import org.bukkit.Color;
-import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-import org.jetbrains.annotations.NotNull;
 
 
 public class PlayerDamage implements Listener {
@@ -24,10 +19,9 @@ public class PlayerDamage implements Listener {
     public void IfPlayerGetsDamage(EntityDamageEvent event){ // if a entity gets damaged in any way
 
         Entity e = event.getEntity();
-        e.sendMessage(""+event.getDamage());
 
-        Entity victim = event.getEntity();// if the VICTIM is a Entity no matter if its a player or whatsoever
-        if (!(victim instanceof Player)){
+        Entity victim = event.getEntity();// if the VICTIM is an Entity no matter if its a player or whatsoever
+        if (!(victim instanceof Player)){// if the victim is not a player, show text indicator
             double damage = event.getDamage();
             ShowTextIndicator(victim,damage);
         }
@@ -52,7 +46,6 @@ public class PlayerDamage implements Listener {
             }
             // if the damage is lower than 1 damage = 0
 
-            player.sendMessage(""+damage);
             health.health.replace(player.getUniqueId(), health.health.get(player.getUniqueId())-damage);
 
             ShowTextIndicator(player,damage);
@@ -74,7 +67,7 @@ public class PlayerDamage implements Listener {
         double finalDamage = damage;
         TextDisplay Indicator =
                 (TextDisplay) victim.getWorld().spawn(victim.getLocation().add(x,y,z), TextDisplay.class, it -> {
-                    it.setText(String.valueOf((int)finalDamage));
+                    it.setText(String.valueOf((int)finalDamage)+"GANG");
                     it.setTextOpacity((byte)0);
                     it.setBillboard(Display.Billboard.CENTER);
         });

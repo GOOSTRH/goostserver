@@ -2,7 +2,6 @@ package me.goost.goostserver.mob.hostile;
 
 import me.goost.goostserver.player.level;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -38,8 +37,8 @@ public class zombie {
         Entity victim = event.getEntity();
         Entity killer = event.getEntity().getKiller();
 
-        if(killer instanceof Player){ // if player is the killer
-            level.addExperience(killer.getUniqueId(), exp);
+        if(killer instanceof Player player){ // if player is the killer
+            level.addExperience(player.getUniqueId(), exp);
         }
     }
 

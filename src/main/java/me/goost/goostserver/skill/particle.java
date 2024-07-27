@@ -1,7 +1,6 @@
 package me.goost.goostserver.skill;
 
 import me.goost.goostserver.GoostServer;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;

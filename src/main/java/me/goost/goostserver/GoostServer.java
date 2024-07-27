@@ -1,7 +1,7 @@
 package me.goost.goostserver;
 
-import me.goost.goostserver.SQLDB.Database;
-import me.goost.goostserver.SQLDB.dataBaseListener;
+import me.goost.goostserver.SQLiteDB.Database;
+import me.goost.goostserver.SQLiteDB.dataBaseListener;
 import me.goost.goostserver.server.*;
 import me.goost.goostserver.player.*;
 import me.goost.goostserver.player.commands.*;
@@ -9,8 +9,10 @@ import me.goost.goostserver.skill.Items;
 import me.goost.goostserver.skill.check.check;
 import me.goost.goostserver.skill.check.onground;
 import me.goost.goostserver.worlds.time;
-import org.bukkit.Bukkit;
+import me.goost.goostserver.SQLiteDB.writeBackDB;
 
+import org.bukkit.Bukkit;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.Objects;
 import org.bukkit.entity.Player;
@@ -32,11 +34,16 @@ public class GoostServer extends JavaPlugin{
         plugin = this;
         Plugin plugin = this;
         initialize(); // initialize settings
-
-
-
+        writeBackDB.onEnableWriteBackDB(); // starts writebackDB
         getLogger().info("");
-        getLogger().info("{G O O S T   P R O D U C E}"); // watermark
+        getLogger().info("{G O O S T   P R O D U C E} Enabling"); // watermark
+    }
+
+    @Override
+    public void onDisable(){
+        writeBackDB.onDisableWriteBackDB(); // writebackDB
+        getLogger().info("");
+        getLogger().info("{G O O S T   P R O D U C E} Disabling"); // watermark
     }
 
     private void initialize(){
@@ -51,21 +58,26 @@ public class GoostServer extends JavaPlugin{
     }
 
 
-    private void DataBaseSettings(){ // Database settings
-        try{
-            this.database = new Database();
+
+    private void DataBaseSettings() { // Database settings
+        try {
+            // Create or get the database file in the plugin's data folder
+            File dataFolder = getDataFolder();
+            if (!dataFolder.exists()) {
+                dataFolder.mkdirs(); // Ensure the data folder exists
+            }
+
+            File databaseFile = new File(dataFolder, "database.db");
+            this.database = new Database(databaseFile);
             database.initializeDatabase();
-            System.out.println("DB initialize started 1");
+            System.out.println("DB initialization started");
             database.loadDataBase();
-            System.out.println("DB loading started 2");
-        }catch (SQLException ex) {
-
-            System.out.println("unable to connect to the database check whats wrong");
-
+            System.out.println("DB loading started");
+        } catch (SQLException ex) {
+            System.out.println("Unable to connect to the database. Check what's wrong.");
             ex.printStackTrace();
         }
     }
-
 
 
 
@@ -87,7 +99,7 @@ public class GoostServer extends JavaPlugin{
 
     private void checkAndSet(){
         Items.set_all_items(); // setting all the values for the skill items
-        checkAllCurrentOnlinePlayers(); // check if all the current online players for something
+        checkAllCurrentOnlinePlayers(); // check if all the current online players for things
     }
 
 
@@ -98,20 +110,26 @@ public class GoostServer extends JavaPlugin{
         Objects.requireNonNull(getCommand("col")).setExecutor(new colevel());
         Objects.requireNonNull(getCommand("test")).setExecutor(new test());
         Objects.requireNonNull(getCommand("staff")).setExecutor(new staffCommands());
+        Objects.requireNonNull(getCommand("showjob")).setExecutor(new showjob());
+        Objects.requireNonNull(getCommand("coentity")).setExecutor(new coentity());
     }
 
     private void registerEvents(){
+        Bukkit.getPluginManager().registerEvents(new dataBaseListener(), this);
+
+        Bukkit.getPluginManager().registerEvents(new onPlayerJoin(), this);
+
         Bukkit.getPluginManager().registerEvents(new health(), this);
         Bukkit.getPluginManager().registerEvents(new ChooseJob(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDamage(), this);
         Bukkit.getPluginManager().registerEvents(new removeJoinMessage(), this);
-        Bukkit.getPluginManager().registerEvents(new ShowStats(), this);
-        Bukkit.getPluginManager().registerEvents(new scoreboard(), this);
         Bukkit.getPluginManager().registerEvents(new check(), this);
         Bukkit.getPluginManager().registerEvents(new money(), this);
         Bukkit.getPluginManager().registerEvents(new coitem(), this);
-        Bukkit.getPluginManager().registerEvents(new onPlayerJoin(), this);
-        Bukkit.getPluginManager().registerEvents(new dataBaseListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new onEntityDeath(), this);
+
+        Bukkit.getPluginManager().registerEvents(new scoreboard(), this);
+        Bukkit.getPluginManager().registerEvents(new ShowStats(), this);
     }
 
 
@@ -119,7 +137,7 @@ public class GoostServer extends JavaPlugin{
     public void checkAllCurrentOnlinePlayers(){
         // check if all the current online players for things
         for (Player player : Bukkit.getOnlinePlayers()) {
-            checkPlayer.checkPlayer(player);
+            checkPlayer_.checkPlayer_(player);
             money.CheckMoney(player);
             ChooseJob.check_player_(player);
             level.checkPlayerLevel(player);

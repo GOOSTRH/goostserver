@@ -1,6 +1,5 @@
 package me.goost.goostserver.player;
 
-import me.goost.goostserver.player.commands.Job;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -70,7 +69,7 @@ public class health implements Listener{
 
     public static void playerRespawn(Player player){
         player.sendMessage(ChatColor.RED+"YOU DIED");
-        player.teleport(new Location(Bukkit.getWorld("World"), -39,120,-48,0,0));
+        player.teleport(new Location(Bukkit.getWorld("World"), -19, 161, 51,180,0));
         health.replace(player.getUniqueId(),healthy.get(player.getUniqueId()));
     }
 

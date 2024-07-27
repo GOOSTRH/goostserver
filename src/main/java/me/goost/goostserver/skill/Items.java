@@ -12,17 +12,12 @@ import java.util.List;
 public class Items {
     // basic items
     public static ItemStack Short_knife;
-    public static ItemStack Archer_Bow;
 
 
     // basic skill items
-    // Archer items
-    public static ItemStack Archer_invis_book;
 
 
     // skill items
-    //Archer items
-    public static ItemStack Archer_invis2_book;
 
     // Dark elf items
     public static ItemStack Assassin_invis_book;
@@ -30,7 +25,6 @@ public class Items {
 
     public static void set_all_items(){
         set_Assassin_items();
-        set_Archer_items();
         set_Short_knife();
     }
 
@@ -67,6 +61,7 @@ public class Items {
 
     }
 
+    /*
     public static void set_Archer_items(){
         Archer_Bow = new ItemStack(Material.BOW, 1);
         ItemMeta meta = Archer_Bow.getItemMeta();
@@ -105,5 +100,6 @@ public class Items {
         Archer_invis2_book.setItemMeta(meta3);
 
     }
+    */
 
 }

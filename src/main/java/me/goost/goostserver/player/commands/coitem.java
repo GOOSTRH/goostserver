@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class coitem implements CommandExecutor, Listener {
 
@@ -74,22 +75,22 @@ public class coitem implements CommandExecutor, Listener {
         if( e.getView().getTitle().equalsIgnoreCase(ChatColor.AQUA + "Custom GUI")){
             Player player = (Player) e.getWhoClicked();
             //Determine what they selected and what to do
-            switch(e.getCurrentItem().getType()){
-                case TNT:
+            switch (Objects.requireNonNull(e.getCurrentItem()).getType()) {
+                case TNT -> {
                     player.closeInventory();
                     player.setHealth(0.0);
                     player.sendMessage("You just killed yourself");
-                    break;
-                case BREAD:
+                }
+                case BREAD -> {
                     player.closeInventory();
                     player.setFoodLevel(20);
                     player.sendMessage("YUM!");
-                    break;
-                case DIAMOND_SWORD:
+                }
+                case DIAMOND_SWORD -> {
                     player.closeInventory();
                     player.getInventory().addItem(new ItemStack(Material.DIAMOND_SWORD));
                     player.sendMessage("Don't slice yourself");
-                    break;
+                }
             }
 
 

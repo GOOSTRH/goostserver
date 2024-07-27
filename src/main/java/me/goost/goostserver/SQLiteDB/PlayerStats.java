@@ -1,4 +1,4 @@
-package me.goost.goostserver.SQLDB;
+package me.goost.goostserver.SQLiteDB;
 
 import java.util.Date;
 
@@ -7,15 +7,14 @@ public class PlayerStats {
     private String uuid;
     private Boolean player;
     private String class_;
-    private int bank;
-    private int cash;
-    private int level;
-    private double experience;
-    private String storyLine;
+    private Integer bank;
+    private Integer cash;
+    private Integer level;
+    private Double experience;
     private Date lastLogin;
     private Date lastLogout;
 
-    public PlayerStats(String uuid, Boolean player, String class_, int bank, int cash, int level, double experience, String storyLine, Date lastLogin, Date lastLogout) {
+    public PlayerStats(String uuid, Boolean player, String class_, Integer bank, Integer cash, Integer level, Double experience, Date lastLogin, Date lastLogout) {
         this.uuid = uuid;
         this.player = player;
         this.class_ = class_;
@@ -24,7 +23,6 @@ public class PlayerStats {
         this.cash = cash;
         this.level = level;
         this.experience = experience;
-        this.storyLine = storyLine;
         this.lastLogin = lastLogin;
         this.lastLogout = lastLogout;
     }
@@ -52,35 +50,30 @@ public class PlayerStats {
         this.class_ = class_;
     }
 
-    public int getBank() {
+    public Integer getBank() {
         return bank;
     }
-    public void setBank(int bank) {
+    public void setBank(Integer bank) {
         this.bank = bank;
     }
 
-    public int getCash() {
+    public Integer getCash() {
         return cash;
     }
-    public void setCash(int cash) {
+    public void setCash(Integer cash) {
         this.cash = cash;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
-    public void setLevel(int level) {this.level = level;}
-    public double getExperience() {
+    public void setLevel(Integer level) {this.level = level;}
+
+    public Double getExperience() {
         return experience;
     }
-    public void setExperience(double experience) {
+    public void setExperience(Double experience) {
         this.experience = experience;
-    }
-    public String getStoryLine() {
-        return storyLine;
-    }
-    public void setStoryLine(String storyLine) {
-        this.storyLine = storyLine;
     }
 
     public Date getLastLogin() {

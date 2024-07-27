@@ -13,14 +13,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class staffCommands implements CommandExecutor {
-
-    private static HashMap<UUID, String> StoryLine = new HashMap<>();
-    public static String GetStoryLine(UUID uuid){return StoryLine.get(uuid);};
-    public static void SetStoryLine(UUID uuid, String str){StoryLine.put(uuid,str);};
-    public static void PrintStroyLine(UUID uuid){
-        System.out.println(GetStoryLine(uuid));
-    }
-
     private static HashMap<UUID, Date> lastLogin = new HashMap<>();
     public static Date GetlastLoginDate(UUID uuid){return lastLogin.get(uuid);};
     public static void SetlastLoginDate(UUID uuid, Date date){lastLogin.put(uuid,date);};
@@ -39,15 +31,11 @@ public class staffCommands implements CommandExecutor {
         if(!sender.isOp()){sender.sendMessage(ChatColor.RED+"You don't have permission to access this command!"); return true;}
 
         if(args.length != 3){
-            sender.sendMessage("/staff/stf StoryLine/lastLogin/lastLogout Player");
+            sender.sendMessage("/staff/stf lastLogin/lastLogout Player");
         }else{
             Player target = Bukkit.getPlayer(args[1]);
             Player player = (Player) sender;
             switch (args[0]) {
-                case "StoryLine":
-                    player.sendMessage(GetStoryLine(target.getUniqueId()));
-                    PrintStroyLine(target.getUniqueId());
-                    break;
                 case "lastLogin":
                     player.sendMessage(String.valueOf((ComponentLike) GetlastLoginDate(target.getUniqueId())));
                     PrintlastLoginDate(target.getUniqueId());

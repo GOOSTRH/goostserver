@@ -1,8 +1,8 @@
 package me.goost.goostserver.player.commands;
 
-import me.goost.goostserver.SQLDB.dataBaseListener;
+import me.goost.goostserver.SQLiteDB.dataBaseListener;
 import me.goost.goostserver.player.ChooseJob;
-import me.goost.goostserver.player.checkPlayer;
+import me.goost.goostserver.player.checkPlayer_;
 import me.goost.goostserver.skill.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,18 +19,14 @@ public class Job implements CommandExecutor {
 
     public static HashMap<UUID, String> Job = new HashMap<>();
 
-    private String archerClass = "archer";
-    public String getArcherClass() {return archerClass;}
-    private String magicClass = "caster";
+    private final String magicClass = "caster";
     public String getMagicClass() {return magicClass;}
-    private String assassinClass = "assassin";
+    private final String assassinClass = "assassin";
     public String getAssassinClass() {return assassinClass;}
-    private String swordClass = "saber";
+    private final String swordClass = "blademaster";
     public String getSwordClass() {return swordClass;}
-    private String nightClass = "demon";
-    public String getNightClass() {return nightClass;}
-    private String beakSuClass = "beaksu";
-    public String getBeakSuClass(){return beakSuClass;}
+    private final String tankClass = "tank";
+    public String getTankClass() {return tankClass;}
 
 
     // COMMAND CODE STARTS HERE
@@ -39,32 +35,23 @@ public class Job implements CommandExecutor {
             return true;
         }
 
-        if(!player.isOp()){return false;} // if the player isn't OP ret false
+        if(!player.isOp()){return false;} // if the player isn't OP return false
 
         if(args.length == 0){ // if there is no arguments return and tell instructions
-            player.sendMessage("Usage: /job check Archer Magic Assassin Sword night remove");
+            player.sendMessage("Usage: /job check, Magic, Assassin, Sword, tank, remove");
             return false;
         }
 
         if(ChooseJob.choosingJob.get(player.getUniqueId()) == Boolean.TRUE){
             switch (args[0]) {
-                case "archer" -> {
-                    // Archer for users
-                    setJobForUser(player,"archer");
-                    // set class
-
-                    dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, archerClass);
-                    //update database class
-
-                    player.setWalkSpeed(0.20f);
-                    // set walk speed to  normal walk speed
-
-                }
                 case "magic" -> {
                     // Magic for users
                     setJobForUser(player,"magic");
+                    // set class
                     dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, magicClass);
+                    //update database class
                     player.setWalkSpeed(0.17f);
+                    // set walk speed to XXX (normal = 0.20f
                 }
                 case "assassin" -> {
                     // Assassin for users
@@ -78,19 +65,13 @@ public class Job implements CommandExecutor {
                     dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, swordClass);
                     player.setWalkSpeed(0.25f);
                 }
-                case "night" -> {
-                    // Night for users
-                    setJobForUser(player,"night");
-                    dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, nightClass);
-                    player.setWalkSpeed(0.30f);
+                case "tank" -> {
+                    // tank for users
+                    setJobForUser(player,"tank");
+                    dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, tankClass);
+                    player.setWalkSpeed(0.15f);
                 }
-                case "beakSu" -> {
-                    // BeakSu for non users or easter egg
-                    setJobForUser(player,"beakSu");
-                    dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, swordClass);
-                    player.setWalkSpeed(0.20f);
-                }
-                default -> player.sendMessage("존재하지않는 명령어");
+                default -> player.sendMessage("this command does not exist.");
             }
 
             give_item(player,Job.get(player.getUniqueId()));
@@ -100,13 +81,13 @@ public class Job implements CommandExecutor {
 
 
             if (Job.get(player.getUniqueId()) == null) {
-                player.sendMessage("현제 직업이 없습니다");
+                player.sendMessage("You are jobless!");
             }else if (Job.get(player.getUniqueId()) != null){
 
                 Job.remove(player.getUniqueId());
                 // remove string from job hashmap
 
-                checkPlayer.checkPlayer(player);
+                checkPlayer_.checkPlayer_(player);
                 // check player's health
 
                 ChooseJob.player_.remove(player.getUniqueId());
@@ -118,6 +99,7 @@ public class Job implements CommandExecutor {
                 player.setWalkSpeed(0.20f);
                 // set to default walk speed
 
+                dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, null);
             }
         }else if(Objects.equals(args[0], "check")){
             // checking player's job
@@ -135,11 +117,6 @@ public class Job implements CommandExecutor {
 
         switch (str) {
 
-            case "archer" -> {
-                //Archer for users
-                setJobForDatabase(player,"archer");
-                player.setWalkSpeed(0.20f);
-            }
             case "magic" -> {
                 //Magic for users
                 setJobForDatabase(player,"magic");
@@ -155,19 +132,15 @@ public class Job implements CommandExecutor {
                 setJobForDatabase(player,"sword");
                 player.setWalkSpeed(0.25f);
             }
-            case "night" -> {
+            case "tank" -> {
                 //Night for users
-                setJobForDatabase(player,"night");
-                player.setWalkSpeed(0.30f);
+                setJobForDatabase(player,"tank");
+                player.setWalkSpeed(0.15f);
             }
-            case "beaksu" -> {
-                // BeakSu for non users or easter egg
-                setJobForDatabase(player,"beaksu");
-                player.setWalkSpeed(0.18f);
-            }
+
             default -> {
                 player.sendMessage(str);
-                player.sendMessage(ChatColor.BOLD+""+ChatColor.RED+"존재하지않는 명령어");
+                player.sendMessage(ChatColor.BOLD+""+ChatColor.RED+"Command does not exist");
             }
         }
     }
@@ -175,10 +148,10 @@ public class Job implements CommandExecutor {
 
     // REPEAT METHOD
     public static void repeat(){
-        // repeatedly sending title to players who does own a job
+        // repeatedly sending title to players who does not own a job
         for (Player player : Bukkit.getOnlinePlayers()) {
             if(Job.get(player.getUniqueId()) == null){
-                player.sendTitle("직업을 선택해주세요", "채팅창에서 클릭하세요", 0, 10, 5);
+                player.sendTitle("Choose a Class", "Click in chat window", 0, 10, 5);
             }
         }
     }
@@ -188,11 +161,6 @@ public class Job implements CommandExecutor {
     public static void give_item(Player player, String job){
         // gives item to the Player according to the job
         switch (job) {
-            case "archer" -> {
-                player.getInventory().addItem(Items.Archer_Bow);
-                player.getInventory().addItem(Items.Archer_invis_book);
-                player.getInventory().addItem(Items.Short_knife);
-            }
             case "assassin" -> {
                 player.getInventory().addItem(Items.Assassin_invis_book);
                 player.getInventory().addItem(Items.Short_knife);
@@ -203,7 +171,7 @@ public class Job implements CommandExecutor {
             case "sword" ->{
                 player.getInventory().addItem(Items.Short_knife);
             }
-            case "night" ->{
+            case "tank" ->{
                 player.getInventory().addItem(Items.Short_knife);
             }
         }
@@ -213,10 +181,10 @@ public class Job implements CommandExecutor {
     // SET JOB for user using
     private static void setJobForUser(Player player , String Class){
         if (Job.get(player.getUniqueId()) != null) {
-            player.sendMessage(ChatColor.RED+"이미 직업이 적용됐습니다");
+            player.sendMessage(ChatColor.RED+"Job is already applied!");
         } else Job.putIfAbsent(player.getUniqueId(), Class);
 
-        checkPlayer.checkPlayer(player);
+        checkPlayer_.checkPlayer_(player);
         ChooseJob.player_.put(player.getUniqueId(), Boolean.TRUE);
         ChooseJob.choosingJob.put(player.getUniqueId(), Boolean.FALSE);
     }
@@ -226,7 +194,7 @@ public class Job implements CommandExecutor {
 
         Job.put(player.getUniqueId(), Class);
 
-        checkPlayer.checkPlayer(player);
+        checkPlayer_.checkPlayer_(player);
         ChooseJob.player_.put(player.getUniqueId(), Boolean.TRUE);
         ChooseJob.choosingJob.put(player.getUniqueId(), Boolean.FALSE);
     }
