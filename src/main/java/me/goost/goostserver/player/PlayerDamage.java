@@ -67,7 +67,7 @@ public class PlayerDamage implements Listener {
         double finalDamage = damage;
         TextDisplay Indicator =
                 (TextDisplay) victim.getWorld().spawn(victim.getLocation().add(x,y,z), TextDisplay.class, it -> {
-                    it.setText(String.valueOf((int)finalDamage)+"GANG");
+                    it.setText(String.valueOf((int)finalDamage));
                     it.setTextOpacity((byte)0);
                     it.setBillboard(Display.Billboard.CENTER);
         });

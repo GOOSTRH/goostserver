@@ -8,6 +8,7 @@ import me.goost.goostserver.player.commands.*;
 import me.goost.goostserver.skill.Items;
 import me.goost.goostserver.skill.check.check;
 import me.goost.goostserver.skill.check.onground;
+import me.goost.goostserver.worldKillDesert.worldTp;
 import me.goost.goostserver.worlds.time;
 import me.goost.goostserver.SQLiteDB.writeBackDB;
 
@@ -30,7 +31,6 @@ public class GoostServer extends JavaPlugin{
 
     @Override
     public void onEnable() {
-
         plugin = this;
         Plugin plugin = this;
         initialize(); // initialize settings
@@ -81,21 +81,7 @@ public class GoostServer extends JavaPlugin{
 
 
 
-    private void repeat(){
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {//loop
-            public void run() {
-                check.check(); // always check if Player is going to use skill or whatsoever
-                onground.ground_check(); // check if Player has been on the ground at least once since last jump
-                ShowStats.showstattick(); // show stat all the time
-                Job.repeat(); // reminds Player to choose class
-                scoreboard.alwaysCheck(); // checking cur time and gete the string and import
-                health.checkPlayerHealthAlways(); // check Player's health always
-                mana.manaOnTick(); // check if Player's mana is overflowed , if so set it to max
-                //level.calculateLevel(); // set level of player according to the experience level
-            }
-        }, 2, 2);
-        mana.repeat(); // mana repeat // increase mana every few sec
-    }
+
 
     private void checkAndSet(){
         Items.set_all_items(); // setting all the values for the skill items
@@ -112,12 +98,14 @@ public class GoostServer extends JavaPlugin{
         Objects.requireNonNull(getCommand("staff")).setExecutor(new staffCommands());
         Objects.requireNonNull(getCommand("showjob")).setExecutor(new showjob());
         Objects.requireNonNull(getCommand("coentity")).setExecutor(new coentity());
+        Objects.requireNonNull(getCommand("worldtp")).setExecutor(new worldTp());
     }
 
     private void registerEvents(){
         Bukkit.getPluginManager().registerEvents(new dataBaseListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new onPlayerJoin(), this);
+        Bukkit.getPluginManager().registerEvents(new onPlayerQuit(), this);
 
         Bukkit.getPluginManager().registerEvents(new health(), this);
         Bukkit.getPluginManager().registerEvents(new ChooseJob(), this);
@@ -132,7 +120,21 @@ public class GoostServer extends JavaPlugin{
         Bukkit.getPluginManager().registerEvents(new ShowStats(), this);
     }
 
-
+    private void repeat(){
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {//loop
+            public void run() {
+                check.check(); // always check if Player is going to use skill or whatsoever
+                onground.ground_check(); // check if Player has been on the ground at least once since last jump
+                ShowStats.showstattick(); // show stat all the time
+                Job.repeat(); // reminds Player to choose class
+                scoreboard.alwaysCheck(); // checking cur time and gete the string and import
+                health.checkPlayerHealthAlways(); // check Player's health always
+                mana.manaOnTick(); // check if Player's mana is overflowed , if so set it to max
+                //level.calculateLevel(); // set level of player according to the experience level
+            }
+        }, 2, 2);
+        mana.repeat(); // mana repeat // increase mana every few sec
+    }
 
     public void checkAllCurrentOnlinePlayers(){
         // check if all the current online players for things

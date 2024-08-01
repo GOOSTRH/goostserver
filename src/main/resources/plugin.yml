@@ -23,3 +23,5 @@ commands:
     description: showjobs
   coentity:
     description: spawn entity
+  worldtp:
+    description: tp to world

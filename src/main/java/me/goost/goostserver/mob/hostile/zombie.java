@@ -20,6 +20,7 @@ public class zombie {
         //        (TextDisplay) player.getWorld().spawn(player.getLocation().add(0,1,0), TextDisplay.class, it -> {
         //            it.setText("GYASdASD");
         //        });
+        // 베타때 추가한 생명바, 매모리낭비
 
         Zombie TestZombie =
                  player.getWorld().spawn(player.getLocation().add(0,1,0), Zombie.class, it -> {

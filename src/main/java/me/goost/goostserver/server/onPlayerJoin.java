@@ -15,14 +15,16 @@ public class onPlayerJoin implements Listener {
     public void onplayerjoin(PlayerJoinEvent e) throws SQLException {
         Player player = e.getPlayer();
 
-        checkPlayer_.checkPlayer_(player); // check if the player is player_
-        Database.loadDataBasePlayer(player);
-
         try {
             checkPlayer.checkPlayersAllDataInDB(player); // check player datas
         } catch (SQLException eve) {
             eve.printStackTrace();
         }
+
+        checkPlayer_.checkPlayer_(player); // check if the player is player_
+        Database.loadDataBasePlayer(player);
+        PlayerLocation.spawnLocation(player);
+
 
 
         money.onplayerjoin(e);

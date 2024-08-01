@@ -12,7 +12,7 @@ public class level {
     public static HashMap<UUID, Double> experience = new HashMap<>();
 
     public static Integer getLevel(UUID uuid){
-        calculatePlayerLevel(uuid);
+        //calculatePlayerLevel(uuid);
         return lev.get(uuid);
     } // ex. 1 2 3 4 5...
 
@@ -29,11 +29,11 @@ public class level {
     }
 
     public static void addExperience(UUID uuid,Double num) {
-        experience.replace(uuid,(getExperience(uuid)+num));
+        experience.put(uuid,(getExperience(uuid)+num));
     }
 
     public static void removeExperience(UUID uuid,Double num){
-        experience.replace(uuid,(getExperience(uuid)-num));
+        experience.put(uuid,(getExperience(uuid)-num));
     }
 
 
@@ -45,17 +45,19 @@ public class level {
             // then our level = i-1
 
             int lvl = 0;
-            double experienceValue = level.getExperience(player.getUniqueId());
+            double experienceValue = getExperience(player.getUniqueId());
             for(int i=0; i<100; i++){
                 double template = experienceTemplate.get(i);
                 if( template > experienceValue ){
                     // if goal is bigger
                     lvl = i-1;
+                    break;
                 }
             }
-            lev.put(player.getUniqueId(),lvl);
+            setLevel(player.getUniqueId(),lvl);
         }
     }
+
 
     public static void calculatePlayerLevel(UUID uuid){
         int lvl = 0; // initialize inputting value
@@ -63,9 +65,10 @@ public class level {
         for(int i=0; i<100; i++){ // loop through all the template
             if(experienceTemplate.get(i) > experienceValue){ // if a number that is higher than player's current exp
                 lvl = i-1; // then the player's lvl is one lower than the
+                break;
             }
         }
-        lev.put(uuid,lvl);
+        setLevel(uuid,lvl);
     }
 
     public static double getPercentage(Player player){ // getting the percentage of player's current progress in level
@@ -75,9 +78,10 @@ public class level {
         // cur 500 = 1500(exp) - 1000 (previous goal to get to this level
         // goal 1000 = 2000(next goal) - 1000(previous
         // Percentage = (cur * 100) / goal = 50 (percent / %)
+        calculatePlayerLevel(player.getUniqueId());
         UUID uuid = player.getUniqueId();
         double ret = 0;
-        double goal = experienceTemplate.get(getLevel(uuid));
+        double goal = experienceTemplate.get(getLevel(uuid)+1);
         // goal = the 100%
 
         double current = getExperience(player.getUniqueId());
@@ -87,8 +91,8 @@ public class level {
 
         goal = goal - previousGoal; // total EXP needed in this current LVL
         current = current - previousGoal; // total EXP have in this current LVL
-        ret = current / goal;
-        return ret;
+        ret = Math.round((current / goal)*1000);
+        return ret/10;
     }
 
     public static void initialize(){

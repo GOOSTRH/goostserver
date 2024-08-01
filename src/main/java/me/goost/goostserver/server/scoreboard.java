@@ -19,6 +19,15 @@ public class scoreboard implements Listener {
     static String show_time = "xx:xx";
     public static void show(){
         for (Player player : Bukkit.getOnlinePlayers()) {
+            int tim = (int) Objects.requireNonNull(player.getWorld()).getTime();
+            //get cur time
+
+            if(time.time.get(tim) != null){//if cur time is in time list
+                show_time = time.time.get(tim);//get cur time in xx:xx format and import it in show_time
+            }else if(time.time.get(tim+1) != null){
+                show_time = time.time.get(tim+1);
+            }
+
 
             UUID uuid = player.getUniqueId();
 
@@ -92,19 +101,7 @@ public class scoreboard implements Listener {
     }
 
     public static void alwaysCheck(){
-
-        int tim = (int) Objects.requireNonNull(Bukkit.getWorld("world")).getTime();
-        //get cur time
-
-
-        if(time.time.get(tim) != null){//if cur time is in time list
-            show_time = time.time.get(tim);//get cur time in xx:xx format and import it in show_time
-            show();//show scoreboard
-        }else if(time.time.get(tim+1) != null){
-            show_time = time.time.get(tim+1);
-            show();//show scoreboard
-        }
-        // check time and set time
+        show();
     }
 
 

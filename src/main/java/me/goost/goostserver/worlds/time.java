@@ -1,10 +1,13 @@
 package me.goost.goostserver.worlds;
 
 
+import org.bukkit.Bukkit;
+
 import java.util.HashMap;
 public class time {
     public static HashMap<Integer, String> time = new HashMap<>();
     public static void main(){
+        Bukkit.getLogger().info("TEST!!!");
         // 16 33 50 , 66 83 100
         int hour = 6, min = 0;
         int times = 0;
@@ -22,9 +25,9 @@ public class time {
             i = (int) Math.round((10000.0/60)*times);
 
             if(min == 0){
-                time.put(i,String.valueOf(hour) + ":" + String.valueOf(min) + "0");
+                time.put(i, hour + ":" + min + "0");
             }else{
-                time.put(i,String.valueOf(hour) + ":" + String.valueOf(min));
+                time.put(i, hour + ":" + min);
             }
             min += 10;
             times++;
