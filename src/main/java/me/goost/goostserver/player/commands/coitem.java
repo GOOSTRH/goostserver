@@ -22,12 +22,11 @@ public class coitem implements CommandExecutor, Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (sender instanceof Player) {
+        if (sender instanceof Player player) {
             if (!sender.isOp()) {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to access this command!");
                 return true;
             }
-            Player player = (Player) sender;
             Inventory gui = Bukkit.createInventory(player, 9, ChatColor.AQUA + "Custom GUI");
 
             //Menu Options(Items)

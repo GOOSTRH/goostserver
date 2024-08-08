@@ -3,8 +3,10 @@ package me.goost.goostserver.server;
 import me.goost.goostserver.SQLiteDB.Database;
 import me.goost.goostserver.SQLiteDB.PlayerStats;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -23,7 +25,6 @@ public class checkPlayer {
                     false,   // Player status
                     "",      // Class
                     0,       // Bank
-                    0,       // Cash
                     0,       // Level
                     0.0,     // Experience
                     new Date(), // Last Login
@@ -41,21 +42,33 @@ public class checkPlayer {
             if (playerStats.getBank() == null) {
                 playerStats.setBank(0);
             }
-            if (playerStats.getCash() == null) {
-                playerStats.setCash(0);
-            }
             if (playerStats.getPlayer() == null) {
                 playerStats.setPlayer(false);
             }
         }
 
-
-
         Database.setPlayerStats(playerStats);
-
-
 
         Database.updateIngameWithDatabase(playerStats);
     }
 
+    // This method checks if the player's data exists (IN HOME DB) and initializes it if not.
+    public static void checkPlayersAllDataInHomeDB(Player player) throws SQLException {
+
+
+        Location playerLocation = Database.findPlayerHomeByUUID(player.getUniqueId());
+
+        if (playerLocation == null) {
+            // Initialize new player data with default values
+            playerLocation = new Location(Bukkit.getWorld("world"),-19.0, 161.0, 51.0);
+            Database.setPlayerHome(player.getUniqueId(), playerLocation);
+            Bukkit.getLogger().info("Initialized data for new player: " + player.getName());
+        }else{
+            if ((Double)playerLocation.getX() == null||(Double)playerLocation.getY() == null||(Double)playerLocation.getZ() == null) {
+                playerLocation = new Location(Bukkit.getWorld("world"),-19.0, 161.0, 51.0);
+            }
+        }
+
+        Database.setPlayerHome(player.getUniqueId(), playerLocation);
+    }
 }

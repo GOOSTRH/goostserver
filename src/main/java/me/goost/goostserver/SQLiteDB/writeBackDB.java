@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class writeBackDB {
     private static final Map<UUID, PlayerStats> playerDataCache = new ConcurrentHashMap<>();
-    private static final long IN_GAME_DAY_TICKS = 24000; // tick per day = 24000
+    private static final long IN_GAME_TICK = 40; // tick per day = 24000
 
 
     public static void onEnableWriteBackDB() {
@@ -41,13 +41,12 @@ public class writeBackDB {
                 }
                 saveAllPlayerData(); // After updating cached data, updated the cached data to DB
             }
-        }.runTaskTimer(GoostServer.getPlugin(), IN_GAME_DAY_TICKS, IN_GAME_DAY_TICKS);
+        }.runTaskTimer(GoostServer.getPlugin(), IN_GAME_TICK, IN_GAME_TICK);
     }
 
     public static void saveAllPlayerData() { // saving ALL the cached player data into the DB
         for (Map.Entry<UUID, PlayerStats> entry : playerDataCache.entrySet()) {
             try {
-                Bukkit.getLogger().info(" \nUSER DATA SAVED!\n ");
                 savePlayerData(entry.getKey(), entry.getValue());
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -65,7 +64,6 @@ public class writeBackDB {
         PlayerStats stats = Database.findPlayerStatsByUUID(uuid.toString());
 
         stats.setBank(money.GetBank(uuid));
-        stats.setCash(money.GetCash(uuid));
         stats.setExperience(level.getExperience(uuid));
         stats.setLevel(level.getLevel(uuid));
 

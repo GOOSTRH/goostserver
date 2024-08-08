@@ -17,6 +17,7 @@ public class onPlayerJoin implements Listener {
 
         try {
             checkPlayer.checkPlayersAllDataInDB(player); // check player datas
+            checkPlayer.checkPlayersAllDataInHomeDB(player); // check player home datas
         } catch (SQLException eve) {
             eve.printStackTrace();
         }

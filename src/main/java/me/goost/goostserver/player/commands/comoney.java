@@ -21,9 +21,6 @@ public class comoney implements CommandExecutor {
                 case "bank":
                     money.AddBank(player.getUniqueId(),Integer.parseInt(args[1]));
                     break;
-                case "cash":
-                    money.AddCash(player.getUniqueId(),Integer.parseInt(args[1]));
-                    break;
             }
         }
         return true;//end of this thing

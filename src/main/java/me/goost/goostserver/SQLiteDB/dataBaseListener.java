@@ -20,7 +20,7 @@ public class dataBaseListener implements Listener {
             if (stats == null) { // if db does not contain the players info
                 stats = new PlayerStats(
                         player.getUniqueId().toString(),
-                        false, "", 0, 0, 0, 0.0, new Date(), new Date()
+                        false, "", 0, 0, 0.0, new Date(), new Date()
                 );
                 Database.setPlayerStats(stats);
             } else {
@@ -38,7 +38,7 @@ public class dataBaseListener implements Listener {
             if (stats == null) { // if db does not contain the players info
                 stats = new PlayerStats(
                         player.getUniqueId().toString(),
-                        true, str, 0, 0, 0, 0.0, new Date(), new Date()
+                        true, str, 0, 0, 0.0, new Date(), new Date()
                 );
                 Database.setPlayerStats(stats);
             } else {

@@ -16,20 +16,6 @@ import java.util.Random;
 
 public class worldTp implements CommandExecutor {
 
-    WorldCreator killWorldc = new WorldCreator("worldKill");
-    World killWorld = killWorldc.createWorld();
-
-    Location TwinCondo = new Location(killWorld, -308 ,200 ,350);
-    Location OG = new Location(killWorld, 18, 200, 2);
-    Location BKomachi = new Location(killWorld, -77, 200, 399);
-    Location Bridge = new Location(killWorld, 158, 200, 604);
-    Location House = new Location(killWorld, -102, 200, 783);
-    Location Storage = new Location(killWorld, -463, 200, 708);
-    Location Castle = new Location(killWorld, -677, 200, 774);
-    Location School = new Location(killWorld, -610, 200, 460);
-    Location Building = new Location(killWorld, -373, 200, 260);
-
-    Location[] KillLocations = {TwinCondo,OG,BKomachi,Bridge,House,Storage,School,Castle,Building};
 
     Location Spawn = new Location(Bukkit.getWorld("world"), -19, 161, 51,180,0);
 
@@ -50,6 +36,25 @@ public class worldTp implements CommandExecutor {
         }
 
         if(args[0].equals("KillZoneTeleport")){
+            WorldCreator killWorldc = new WorldCreator("worldKill");
+
+            World killWorld = killWorldc.createWorld();
+            World world = Bukkit.getWorld("world");
+            assert world != null;
+            assert killWorld != null;
+            killWorld.setTime(world.getTime());
+
+            Location TwinCondo = new Location(killWorld, -308 ,200 ,350);
+            Location OG = new Location(killWorld, 18, 200, 2);
+            Location BKomachi = new Location(killWorld, -77, 200, 399);
+            Location Bridge = new Location(killWorld, 158, 200, 604);
+            Location House = new Location(killWorld, -102, 200, 783);
+            Location Storage = new Location(killWorld, -463, 200, 708);
+            Location Castle = new Location(killWorld, -677, 200, 774);
+            Location School = new Location(killWorld, -610, 200, 460);
+            Location Building = new Location(killWorld, -373, 200, 260);
+
+            Location[] KillLocations = {TwinCondo,OG,BKomachi,Bridge,House,Storage,School,Castle,Building};
 
             Random random = new Random();
             Location location = KillLocations[random.nextInt(9)];

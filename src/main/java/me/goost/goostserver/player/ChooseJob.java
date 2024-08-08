@@ -35,10 +35,6 @@ public class ChooseJob implements Listener {
             // if Player joins server check if Player is a 'Player' or not
             // if Player is not a 'Player' (백수
             choose_class(player);
-        }else{
-            player.sendMessage("");
-            player.sendMessage("Name: "+player.getName());
-            player.sendMessage("Class: "+ Job.Job.get(player.getUniqueId()));
         }
     }
 

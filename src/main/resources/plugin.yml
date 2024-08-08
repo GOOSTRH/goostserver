@@ -25,3 +25,9 @@ commands:
     description: spawn entity
   worldtp:
     description: tp to world
+  sethome:
+    description: sethome
+  home:
+    description: go home
+  npc:
+    description: spawn npcs

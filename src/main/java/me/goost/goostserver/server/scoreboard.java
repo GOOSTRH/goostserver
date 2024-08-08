@@ -19,7 +19,7 @@ public class scoreboard implements Listener {
     static String show_time = "xx:xx";
     public static void show(){
         for (Player player : Bukkit.getOnlinePlayers()) {
-            int tim = (int) Objects.requireNonNull(player.getWorld()).getTime();
+            int tim = (int) Objects.requireNonNull(Bukkit.getWorld("world")).getTime();
             //get cur time
 
             if(time.time.get(tim) != null){//if cur time is in time list
@@ -73,27 +73,23 @@ public class scoreboard implements Listener {
                     "Bank: $" + ChatColor.GREEN + money.GetBank(uuid));
             // Gold Bold bank: , Green Bold Money
 
-            Score s1 = objective.getScore(ChatColor.GOLD+""+ChatColor.BOLD+
-                    "Cash: $" + ChatColor.GREEN + money.GetCash(uuid));
-            // Gold Bold cash: , Green Bold Money
 
-            Score s2 = objective.getScore(ChatColor.WHITE+""+ChatColor.BOLD+
+            Score s1 = objective.getScore(ChatColor.WHITE+""+ChatColor.BOLD+
                     "Online Player: " + Bukkit.getServer().getOnlinePlayers().size());
             // White Bold Player count:
 
-            Score s3 = objective.getScore(ChatColor.WHITE+""+ ChatColor.BOLD+
+            Score s2 = objective.getScore(ChatColor.WHITE+""+ ChatColor.BOLD+
                     "Time: "+ChatColor.YELLOW+show_time);
             // White Bold Time:
 
-            Score s4 = objective.getScore(ChatColor.WHITE+""+ ChatColor.BOLD+
+            Score s3 = objective.getScore(ChatColor.WHITE+""+ ChatColor.BOLD+
                     "Level: ["+level.getPercentage(player)+"%]"+ChatColor.RESET+"["+ChatColor.BLUE+BlueBar+ChatColor.GRAY+GrayBar+ChatColor.WHITE + "]");
             // White Bold current level: [??%],[Blue,BlueBar,Gray,Graybar]
 
-            s0.setScore(6);
-            s1.setScore(5);
-            s2.setScore(4);
-            s3.setScore(3);
-            s4.setScore(2);
+            s0.setScore(4);
+            s1.setScore(3);
+            s2.setScore(2);
+            s3.setScore(1);
 
 
             player.setScoreboard(scoreboard);

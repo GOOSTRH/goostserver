@@ -35,10 +35,9 @@ public class Job implements CommandExecutor {
             return true;
         }
 
-        if(!player.isOp()){return false;} // if the player isn't OP return false
 
         if(args.length == 0){ // if there is no arguments return and tell instructions
-            player.sendMessage("Usage: /job check, Magic, Assassin, Sword, tank, remove");
+            player.sendMessage("Usage: /job check");
             return false;
         }
 
@@ -71,7 +70,7 @@ public class Job implements CommandExecutor {
                     dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, tankClass);
                     player.setWalkSpeed(0.15f);
                 }
-                default -> player.sendMessage("this command does not exist.");
+                default -> player.sendMessage("job "+args[0]+" does not exist.");
             }
 
             give_item(player,Job.get(player.getUniqueId()));
@@ -79,6 +78,10 @@ public class Job implements CommandExecutor {
 
         }else if(args[0].equals("remove")){ // if removing job
 
+            if(!player.isOp()){
+                player.sendMessage("You are not OP!");
+                return false;
+            }
 
             if (Job.get(player.getUniqueId()) == null) {
                 player.sendMessage("You are jobless!");
@@ -103,7 +106,7 @@ public class Job implements CommandExecutor {
             }
         }else if(Objects.equals(args[0], "check")){
             // checking player's job
-            player.sendMessage(ChatColor.WHITE+"현제 직업은:"+ChatColor.BOLD+""+ChatColor.GOLD+Job.get(player.getUniqueId()));
+            player.sendMessage(ChatColor.WHITE+"Current Job is:"+ChatColor.BOLD+""+ChatColor.GOLD+Job.get(player.getUniqueId()));
         }
         return true;
         // end of job choosing ( chatBox's command
@@ -151,7 +154,7 @@ public class Job implements CommandExecutor {
         // repeatedly sending title to players who does not own a job
         for (Player player : Bukkit.getOnlinePlayers()) {
             if(Job.get(player.getUniqueId()) == null){
-                player.sendTitle("Choose a Class", "Click in chat window", 0, 10, 5);
+                player.sendTitle("Choose a Class!", "Click in chat window or /showjob", 0, 10, 5);
             }
         }
     }
