@@ -13,10 +13,23 @@ public class worldLoadListener implements Listener {
         World world = event.getWorld();
         if (world.getName().equals("world")) {
             WorldBorder border = world.getWorldBorder();
-            border.setCenter(0,0);
+            border.setCenter(0, 0);
             border.setSize(2000);
-            Bukkit.getLogger().info("Worldborder for wold initialized.");
-            Bukkit.getLogger().info("World name = " + world.getName());
+            Bukkit.getLogger().info("Worldborder for 'world' initialized.");
+        }
+        if (world.getName().equals("worldKill")) {
+            WorldBorder border = world.getWorldBorder();
+            border.setCenter(-193.41, 457.43);
+            border.setSize(1400);
+            Bukkit.getLogger().info("Worldborder for 'worldKill' initialized.");
+        }
+        debugWorldBorders();
+    }
+
+    public static void debugWorldBorders() {
+        for (World world : Bukkit.getWorlds()) {
+            WorldBorder border = world.getWorldBorder();
+            Bukkit.getLogger().info("World: " + world.getName() + " - Border Center: " + border.getCenter() + " - Size: " + border.getSize());
         }
     }
 }

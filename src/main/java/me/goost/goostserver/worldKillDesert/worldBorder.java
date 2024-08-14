@@ -2,6 +2,7 @@ package me.goost.goostserver.worldKillDesert;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Random;
 
@@ -73,22 +74,51 @@ public class worldBorder {
             }
         }
     }
-    public static void setWorldBorder(String worldName, double size, double x, double z, Long time, double initialSize, double initialx, double initialz) {
+    public static void setWorldBorder(String worldName, double finalSize, double finalX, double finalZ, long time, double initialSize, double initialX, double initialZ) {
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
-            //-193.41 457.43
-            //-264 160 48
             WorldBorder border = world.getWorldBorder();
-            border.setCenter(initialx,initialz);
+            border.setCenter(initialX, initialZ);
             border.setSize(initialSize);
 
-            Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                border.setCenter(x, z); // Update to the new center
-                border.setSize(size, time); // Set the size of the world border over time
-            }, 20L); // Wait for 1 second (20 ticks) before applying the changes
-            Bukkit.getLogger().info("World border for " + worldName + " set to " + size);
+            double distanceX = finalX - initialX;
+            double distanceZ = finalZ - initialZ;
+            double sizeChange = finalSize - initialSize;
+
+            double totalDistance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
+            double stepSize = 0.1; // Adjust this value for smoother movement
+            int steps = (int) (totalDistance / stepSize);
+
+            double stepX = distanceX / steps;
+            double stepZ = distanceZ / steps;
+            double stepSizeChange = sizeChange / steps;
+
+            new BukkitRunnable() {
+                int currentStep = 0;
+
+                @Override
+                public void run() {
+                    if (currentStep >= steps) {
+                        border.setCenter(finalX, finalZ);  // Ensure final position is exactly the target position
+                        border.setSize(finalSize, time);  // Ensure final size is set exactly
+                        cancel();  // Stop the task
+                    } else {
+                        double newX = initialX + stepX * currentStep;
+                        double newZ = initialZ + stepZ * currentStep;
+                        double newSize = initialSize + stepSizeChange * currentStep;
+
+                        border.setCenter(newX, newZ);  // Move the border bit by bit
+                        border.setSize(newSize);  // Adjust the size bit by bit
+
+                        currentStep++;
+                    }
+                }
+            }.runTaskTimer(plugin, 0L, 1L);  // Run every tick (20 times per second)
+
+            Bukkit.getLogger().info("World border for " + worldName + " is moving towards " + finalX + ", " + finalZ + " with a final size of " + finalSize);
         } else {
             Bukkit.getLogger().severe("World " + worldName + " not found.");
         }
     }
+
 }

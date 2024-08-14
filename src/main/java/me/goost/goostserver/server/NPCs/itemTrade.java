@@ -14,12 +14,15 @@ public class itemTrade {
 
     public static void setItemMeta(ItemStack item, String name, int price) {
         ItemMeta itemMeta = item.getItemMeta(); // NBT
+        assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.WHITE + name);
         ArrayList<String> itemLore = new ArrayList<>(); // Lore
         itemLore.add(ChatColor.GREEN + "Price: " + price);
         itemLore.add("");
         itemLore.add(ChatColor.WHITE + "LeftClick sell "+ ChatColor.GREEN +"[1]");
+        itemLore.add(ChatColor.WHITE + "1:"+ ChatColor.GREEN +"["+price+"]");
         itemLore.add(ChatColor.WHITE + "RightClick sell "+ ChatColor.GREEN +"[64]");
+        itemLore.add(ChatColor.WHITE + "64:"+ ChatColor.GREEN +"["+(price*64)+"]");
         itemMeta.setLore(itemLore); // set Lore
         item.setItemMeta(itemMeta); // set NBT
     }
@@ -91,15 +94,39 @@ public class itemTrade {
 
         if (money.GetBank(player.getUniqueId()) >= totalPrice) { // If the player have enough $$$ to buy the item/s
 
-            player.
+            int freeSpace = calculateFreeSpace(player, item);
 
-            player.sendMessage(ChatColor.GREEN + "You sold " + totalSold + " " + item.name().toLowerCase().replace("_", " ") + "(s) for " + (price * totalSold) + " coins.");
+            if (freeSpace >= amountToBuy) { // Check if there's enough space in the inventory
+                playerPay(player,totalPrice);
+                // Add the items to the player's inventory
+                ItemStack itemStack = new ItemStack(item, amountToBuy);
+                player.getInventory().addItem(itemStack);
 
-            playerPay(player,(price * totalBuy));
 
-        } else { // Send a message to the player if they don't have the item
-            player.sendMessage(ChatColor.RED + "You don't have any " + item.name().toLowerCase().replace("_", " ") + " to sell.");
+                // Notify the player of the successful purchase
+                player.sendMessage(ChatColor.GREEN + "You bought " + amountToBuy + " " + item.name().toLowerCase().replace("_", " ") + "(s) for " + totalPrice + " coins.");
+            } else {
+                // Notify the player that they don't have enough inventory space
+                player.sendMessage(ChatColor.RED + "You don't have enough inventory space to buy " + amountToBuy + " " + item.name().toLowerCase().replace("_", " ") + "(s).");
+            }
+
+        } else { // Send a message to the player if they poor
+            player.sendMessage(ChatColor.RED + "You don't have enough money to buy " + amountToBuy + " " + item.name().toLowerCase().replace("_", " ") + "(s).");
         }
+    }
+
+    private static int calculateFreeSpace(Player player, Material item) {
+        int freeSpace = 0;
+
+        for (ItemStack inventoryItem : player.getInventory().getContents()) {
+            if (inventoryItem == null || inventoryItem.getType() == Material.AIR) {
+                freeSpace += item.getMaxStackSize(); // Count empty slots
+            } else if (inventoryItem.getType() == item) {
+                freeSpace += item.getMaxStackSize() - inventoryItem.getAmount(); // Count partial stacks
+            }
+        }
+
+        return freeSpace;
     }
 
     private static void playerPay(Player player, int amount){

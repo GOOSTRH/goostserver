@@ -6,6 +6,8 @@ import me.goost.goostserver.server.*;
 import me.goost.goostserver.player.*;
 import me.goost.goostserver.player.commands.*;
 import me.goost.goostserver.server.NPCs.GUI.NPCWoodBuyGUI;
+import me.goost.goostserver.server.NPCs.GUI.NPCWoodSellGUI;
+import me.goost.goostserver.server.NPCs.NPCGUIClickEvent;
 import me.goost.goostserver.server.NPCs.NPCInteraction;
 import me.goost.goostserver.server.NPCs.SpawnNPCCmd;
 import me.goost.goostserver.skill.Items;
@@ -130,8 +132,9 @@ public class GoostServer extends JavaPlugin{
         Bukkit.getPluginManager().registerEvents(new ShowStats(), this);
         Bukkit.getPluginManager().registerEvents(new spawnProtection(), this);
         Bukkit.getPluginManager().registerEvents(new worldLoadListener(), this);
+
         Bukkit.getPluginManager().registerEvents(new NPCInteraction(), this);
-        Bukkit.getPluginManager().registerEvents(new NPCWoodBuyGUI(), this);
+        Bukkit.getPluginManager().registerEvents(new NPCGUIClickEvent(), this);
     }
 
     private void repeat(){

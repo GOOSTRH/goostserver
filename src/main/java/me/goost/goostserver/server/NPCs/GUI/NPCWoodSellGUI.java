@@ -2,40 +2,36 @@ package me.goost.goostserver.server.NPCs.GUI;
 
 import me.goost.goostserver.server.NPCs.itemTrade;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class NPCWoodSellGUI implements Listener {
-    // Define prices for each type of log
-    static int oakLogPrice = 20;
-    static int spruceLogPrice = 20;
-    static int birchLogPrice = 20;
-    static int jungleLogPrice = 20;
-    static int acaciaLogPrice = 20;
-    static int darkOakLogPrice = 20;
-    static int mangroveLogPrice = 20;
-    static int cherryLogPrice = 20;
-    static int crimsonLogPrice = 20;
-    static int warpedLogPrice = 20;
-    // Define prices for each type of plank
-    static int oakPlankPrice = 5;
-    static int sprucePlankPrice = 5;
-    static int birchPlankPrice = 5;
-    static int junglePlankPrice = 5;
-    static int acaciaPlankPrice = 5;
-    static int darkOakPlankPrice = 5;
-    static int mangrovePlankPrice = 5;
-    static int cherryPlankPrice = 5;
-    static int crimsonPlankPrice = 5;
-    static int warpedPlankPrice = 5;
+public class NPCWoodSellGUI{
 
-    static ItemStack AIR = new ItemStack(Material.AIR);
+    // Define prices for each type of log
+    public static int oakLogPrice = 40;
+    public static int spruceLogPrice = 40;
+    public static int birchLogPrice = 40;
+    public static int jungleLogPrice = 40;
+    public static int acaciaLogPrice = 40;
+    public static int darkOakLogPrice = 40;
+    public static int mangroveLogPrice = 40;
+    public static int cherryLogPrice = 40;
+    public static int crimsonLogPrice = 40;
+    public static int warpedLogPrice = 40;
+    // Define prices for each type of plank
+    public static int oakPlankPrice = 10;
+    public static int sprucePlankPrice = 10;
+    public static int birchPlankPrice = 10;
+    public static int junglePlankPrice = 10;
+    public static int acaciaPlankPrice = 10;
+    public static int darkOakPlankPrice = 10;
+    public static int mangrovePlankPrice = 10;
+    public static int cherryPlankPrice = 10;
+    public static int crimsonPlankPrice = 10;
+    public static int warpedPlankPrice = 10;
+    static ItemStack Filler = new ItemStack(Material.AIR);
 
     public static void showWoodSellGUI(Player player){
         Inventory gui = Bukkit.createInventory(player, 54,  "Wood Vendor");
@@ -86,12 +82,12 @@ public class NPCWoodSellGUI implements Listener {
 
         ItemStack[] menu_items = {
 
-                AIR,AIR,AIR,AIR,AIR,AIR,AIR,AIR,AIR,
-                AIR,oakLog,birchLog,darkOakLog,spruceLog,jungleLog,AIR,AIR,AIR,
-                AIR,acaciaLog,crimsonLog,warpedLog,mangroveLog,cherryLog,AIR,AIR,AIR,
-                AIR,oakPlank,birchPlank,darkOakPlank,sprucePlank,junglePlank,AIR,AIR,AIR,
-                AIR,acaciaPlank,crimsonPlank,warpedPlank,mangrovePlank,cherryPlank,AIR,AIR,AIR,
-                AIR,AIR,AIR,AIR,AIR,AIR,AIR,AIR,AIR
+                Filler, Filler, Filler, Filler, Filler, Filler, Filler, Filler, Filler,
+                Filler,oakLog,birchLog,darkOakLog,spruceLog,jungleLog, Filler, Filler, Filler,
+                Filler,acaciaLog,crimsonLog,warpedLog,mangroveLog,cherryLog, Filler, Filler, Filler,
+                Filler,oakPlank,birchPlank,darkOakPlank,sprucePlank,junglePlank, Filler, Filler, Filler,
+                Filler,acaciaPlank,crimsonPlank,warpedPlank,mangrovePlank,cherryPlank, Filler, Filler, Filler,
+                Filler, Filler, Filler, Filler, Filler, Filler, Filler, Filler, Filler
 
         };
         gui.setContents(menu_items);
@@ -100,50 +96,7 @@ public class NPCWoodSellGUI implements Listener {
 
 
 
-    @EventHandler
-    public void clickEvent(InventoryClickEvent e){
 
-        //C heck to see if its the GUI menu
-        if( e.getView().getTitle().equalsIgnoreCase(ChatColor.GREEN + "Wood Purchaser")){
-            e.setCancelled(true);
-            Player player = (Player) e.getWhoClicked();
-            // Determine what they selected and what to do
-            // The item player clicked/selected
-            ItemStack currentItem = e.getCurrentItem();
-
-            if (currentItem == null || currentItem.getType() == Material.AIR) { // if nothing, return
-                return;
-            }
-
-            Material item = currentItem.getType();
-            switch (item) {
-                case OAK_LOG -> itemTrade.buyItem(player, item, oakLogPrice, e.getClick());
-                case SPRUCE_LOG -> itemTrade.buyItem(player, item, spruceLogPrice, e.getClick());
-                case BIRCH_LOG -> itemTrade.buyItem(player, item, birchLogPrice, e.getClick());
-                case JUNGLE_LOG -> itemTrade.buyItem(player, item, jungleLogPrice, e.getClick());
-                case ACACIA_LOG -> itemTrade.buyItem(player, item, acaciaLogPrice, e.getClick());
-                case DARK_OAK_LOG -> itemTrade.buyItem(player, item, darkOakLogPrice, e.getClick());
-                case MANGROVE_LOG -> itemTrade.buyItem(player, item, mangroveLogPrice, e.getClick());
-                case CHERRY_LOG -> itemTrade.buyItem(player, item, cherryLogPrice, e.getClick());
-                case CRIMSON_STEM -> itemTrade.buyItem(player, item, crimsonLogPrice, e.getClick());
-                case WARPED_STEM -> itemTrade.buyItem(player, item, warpedLogPrice, e.getClick());
-                case OAK_PLANKS -> itemTrade.buyItem(player, item, oakPlankPrice, e.getClick());
-                case SPRUCE_PLANKS -> itemTrade.buyItem(player, item, sprucePlankPrice, e.getClick());
-                case BIRCH_PLANKS -> itemTrade.buyItem(player, item, birchPlankPrice, e.getClick());
-                case JUNGLE_PLANKS -> itemTrade.buyItem(player, item, junglePlankPrice, e.getClick());
-                case ACACIA_PLANKS -> itemTrade.buyItem(player, item, acaciaPlankPrice, e.getClick());
-                case DARK_OAK_PLANKS -> itemTrade.buyItem(player, item, darkOakPlankPrice, e.getClick());
-                case MANGROVE_PLANKS -> itemTrade.buyItem(player, item, mangrovePlankPrice, e.getClick());
-                case CHERRY_PLANKS -> itemTrade.buyItem(player, item, cherryPlankPrice, e.getClick());
-                case CRIMSON_PLANKS -> itemTrade.buyItem(player, item, crimsonPlankPrice, e.getClick());
-                case WARPED_PLANKS -> itemTrade.buyItem(player, item, warpedPlankPrice, e.getClick());
-                default -> {return;}
-            }
-
-
-            e.setCancelled(true); //So they cant take the items
-        }
-    }
 
 
 

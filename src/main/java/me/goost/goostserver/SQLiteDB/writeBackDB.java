@@ -31,15 +31,17 @@ public class writeBackDB {
         new BukkitRunnable() {
             @Override
             public void run() {
-                level.calculateAllPlayerLevel(); // calculate All Players level before caching
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    try {
-                        updatePlayerCachedData(player.getUniqueId()); // Updating each player's cached data
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                if (Bukkit.getOnlinePlayers().size() > 0) {
+                    level.calculateAllPlayerLevel(); // calculate All Players level before caching
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        try {
+                            updatePlayerCachedData(player.getUniqueId()); // Updating each player's cached data
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    saveAllPlayerData(); // After updating cached data, updated the cached data to DB
                 }
-                saveAllPlayerData(); // After updating cached data, updated the cached data to DB
             }
         }.runTaskTimer(GoostServer.getPlugin(), IN_GAME_TICK, IN_GAME_TICK);
     }
