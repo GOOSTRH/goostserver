@@ -203,7 +203,9 @@ public class Database {
         UUID uuid = UUID.fromString(stats.getUuid());
 
         if (stats.getPlayer()) {
-            Job.setJob(uuid, stats.getClass_());
+            if (stats.getClass_() != null){
+                Job.setJob(uuid, stats.getClass_());
+            }
             ChooseJob.setPlayer_(uuid, stats.getPlayer());
         } else {
             ChooseJob.setPlayer_(uuid, stats.getPlayer());

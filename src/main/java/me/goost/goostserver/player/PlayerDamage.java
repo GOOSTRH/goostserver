@@ -11,12 +11,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 
 public class PlayerDamage implements Listener {
-    double reduce_amount = 0.01876172608;
-
 
 
     @EventHandler
-    public void IfPlayerGetsDamage(EntityDamageEvent event){ // if a entity gets damaged in any way
+    public void IfEntityDamaged(EntityDamageEvent event){ // if a entity gets damaged in any way
 
         Entity e = event.getEntity();
 
@@ -35,12 +33,10 @@ public class PlayerDamage implements Listener {
             // set damage to 0.0
 
             Player player = (Player)e;
-            player.sendMessage("raw dmg: "+damage);
-
-            damage = damage - (def.get_def(player.getUniqueId()) * reduce_amount);
+            double dmgAfterCalculate = damage * (def.GetDef(player.getUniqueId()) / 1000.00);
+            damage = damage - dmgAfterCalculate;
             damage = Math.round(damage * 100d) / 100d;// reduce the 'damaged amount' to the player's health
 
-            player.sendMessage("aft def dmg: "+damage);
             if(damage < 1){
                 damage = 0;
             }

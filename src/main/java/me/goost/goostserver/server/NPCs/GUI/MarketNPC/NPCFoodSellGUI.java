@@ -1,4 +1,4 @@
-package me.goost.goostserver.server.NPCs.GUI;
+package me.goost.goostserver.server.NPCs.GUI.MarketNPC;
 
 import me.goost.goostserver.server.NPCs.itemTrade;
 import org.bukkit.Bukkit;

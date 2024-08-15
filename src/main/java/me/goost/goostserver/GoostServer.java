@@ -5,8 +5,6 @@ import me.goost.goostserver.SQLiteDB.dataBaseListener;
 import me.goost.goostserver.server.*;
 import me.goost.goostserver.player.*;
 import me.goost.goostserver.player.commands.*;
-import me.goost.goostserver.server.NPCs.GUI.NPCWoodBuyGUI;
-import me.goost.goostserver.server.NPCs.GUI.NPCWoodSellGUI;
 import me.goost.goostserver.server.NPCs.NPCGUIClickEvent;
 import me.goost.goostserver.server.NPCs.NPCInteraction;
 import me.goost.goostserver.server.NPCs.SpawnNPCCmd;
@@ -111,6 +109,7 @@ public class GoostServer extends JavaPlugin{
         Objects.requireNonNull(getCommand("sethome")).setExecutor(new sethome());
         Objects.requireNonNull(getCommand("home")).setExecutor(new home());
         Objects.requireNonNull(getCommand("npc")).setExecutor(new SpawnNPCCmd());
+        Objects.requireNonNull(getCommand("spawn")).setExecutor(new spawn());
     }
 
     private void registerEvents(){

@@ -35,6 +35,7 @@ public class SpawnNPCCmd implements CommandExecutor {
 
 
         switch (args[0]) {
+            // Market NPCs
             case "woodbuy" -> spawnVillager("woodbuy","Wood Purchaser",player, Villager.Profession.FLETCHER);
             case "woodsell" -> spawnVillager("woodsell","Wood Vendor",player, Villager.Profession.FLETCHER);
             case "orebuy" -> spawnVillager("orebuy","Ore Purchaser",player,Villager.Profession.SHEPHERD);
@@ -46,6 +47,19 @@ public class SpawnNPCCmd implements CommandExecutor {
             case "boostsell" -> spawnVillager("boostsell","Boost Vendor",player, Villager.Profession.CLERIC);
             case "armorsell" -> spawnVillager("armorsell","Armor Vendor",player, Villager.Profession.TOOLSMITH);
             case "toolsell" -> spawnVillager("toolsell","Tool Vendor",player, Villager.Profession.WEAPONSMITH);
+
+            // Class item NPCs
+            case "arcanistsell" -> spawnVillager("arcanistsell","Arcanist Item Vendor",player, Villager.Profession.CARTOGRAPHER);
+            case "assassinsell" -> spawnVillager("assassinsell","Assassin Item Vendor",player, Villager.Profession.WEAPONSMITH);
+            case "blademastersell" -> spawnVillager("blademastersell","Blademaster Item Vendor",player, Villager.Profession.WEAPONSMITH);
+            case "paladinsell" -> spawnVillager("paladinsell","Paladin Item Vendor",player, Villager.Profession.ARMORER);
+
+            // Underground NPCs
+            case "casino" -> spawnVillager("casino","Token Vendor",player, Villager.Profession.CARTOGRAPHER);
+            case "blackmarket" -> spawnVillager("blackmarket","Blackmarket Trader",player, Villager.Profession.SHEPHERD);
+
+            // Raidzone TP NPC
+            case "guide" -> spawnVillager("guide","Gatekeeper",player, Villager.Profession.MASON);
 
             default -> player.sendMessage("this command does not exist.");
         }

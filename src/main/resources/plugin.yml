@@ -31,3 +31,5 @@ commands:
     description: go home
   npc:
     description: spawn npcs
+  spawn:
+    description: go to spawn

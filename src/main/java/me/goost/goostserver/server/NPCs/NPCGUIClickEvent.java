@@ -1,6 +1,6 @@
 package me.goost.goostserver.server.NPCs;
 
-import me.goost.goostserver.server.NPCs.GUI.*;
+import me.goost.goostserver.server.NPCs.GUI.MarketNPC.*;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -50,7 +50,6 @@ public class NPCGUIClickEvent implements Listener {
                 default -> {
                 }
             }
-
         }else if( e.getView().getTitle().equalsIgnoreCase("Wood Purchaser")){
             e.setCancelled(true);
             switch (item) {
@@ -148,7 +147,7 @@ public class NPCGUIClickEvent implements Listener {
         }else if( e.getView().getTitle().equalsIgnoreCase("Mob Drop Vendor")){
             e.setCancelled(true);
             switch (item) {
-                case ROTTEN_FLESH ->       itemTrade.buyItem(player, item,NPCDropSellGUI.fleshPrice, e.getClick());
+                case ROTTEN_FLESH ->       itemTrade.buyItem(player, item, NPCDropSellGUI.fleshPrice, e.getClick());
                 case BONE ->               itemTrade.buyItem(player, item, NPCDropSellGUI.bonePrice, e.getClick());
                 case STRING ->             itemTrade.buyItem(player, item, NPCDropSellGUI.stringPrice, e.getClick());
                 case SPIDER_EYE ->         itemTrade.buyItem(player, item, NPCDropSellGUI.spiderEyePrice, e.getClick());
@@ -259,8 +258,6 @@ public class NPCGUIClickEvent implements Listener {
                             itemTrade.buyItem(player, item, NPCBoostSellGUI.strengthPotionPrice, e.getClick());
                         } else if (potionMeta.getBasePotionData().getType() == PotionType.SLOW_FALLING) {
                             itemTrade.buyItem(player, item, NPCBoostSellGUI.slowFallingSplashPotionPrice, e.getClick());
-                        } else {
-                            // Handle unknown potion types or cases where item is not a potion
                         }
                     }
                 }

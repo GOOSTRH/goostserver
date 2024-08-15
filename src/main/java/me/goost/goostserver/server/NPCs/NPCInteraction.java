@@ -1,7 +1,7 @@
 package me.goost.goostserver.server.NPCs;
 
 import me.goost.goostserver.GoostServer;
-import me.goost.goostserver.server.NPCs.GUI.*;
+import me.goost.goostserver.server.NPCs.GUI.MarketNPC.*;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;

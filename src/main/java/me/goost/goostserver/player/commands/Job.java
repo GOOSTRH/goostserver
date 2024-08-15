@@ -51,29 +51,32 @@ public class Job implements CommandExecutor {
                     //update database class
                     player.setWalkSpeed(0.17f);
                     // set walk speed to XXX (normal = 0.20f
+                    give_item(player,Job.get(player.getUniqueId()));
                 }
                 case "assassin" -> {
                     // Assassin for users
                     setJobForUser(player,"assassin");
                     dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, assassinClass);
                     player.setWalkSpeed(0.30f);
+                    give_item(player,Job.get(player.getUniqueId()));
                 }
                 case "sword" -> {
                     // Saber for users
                     setJobForUser(player,"sword");
                     dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, swordClass);
                     player.setWalkSpeed(0.25f);
+                    give_item(player,Job.get(player.getUniqueId()));
                 }
                 case "tank" -> {
                     // tank for users
                     setJobForUser(player,"tank");
                     dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, tankClass);
                     player.setWalkSpeed(0.15f);
+                    give_item(player,Job.get(player.getUniqueId()));
                 }
                 default -> player.sendMessage("job "+args[0]+" does not exist.");
             }
 
-            give_item(player,Job.get(player.getUniqueId()));
             // give starting item kit to the Player matches with the job
 
         }else if(args[0].equals("remove")){ // if removing job
@@ -87,10 +90,10 @@ public class Job implements CommandExecutor {
                 player.sendMessage("You are jobless!");
             }else if (Job.get(player.getUniqueId()) != null){
 
-                Job.remove(player.getUniqueId());
+                Job.put(player.getUniqueId(),null);
                 // remove string from job hashmap
 
-                checkPlayer_.checkPlayer_(player);
+                checkPlayer_.checkPlayer_Constantly(player);
                 // check player's health
 
                 ChooseJob.player_.remove(player.getUniqueId());
@@ -187,7 +190,7 @@ public class Job implements CommandExecutor {
             player.sendMessage(ChatColor.RED+"Job is already applied!");
         } else Job.putIfAbsent(player.getUniqueId(), Class);
 
-        checkPlayer_.checkPlayer_(player);
+        checkPlayer_.checkPlayer_Constantly(player);
         ChooseJob.player_.put(player.getUniqueId(), Boolean.TRUE);
         ChooseJob.choosingJob.put(player.getUniqueId(), Boolean.FALSE);
     }
@@ -197,7 +200,7 @@ public class Job implements CommandExecutor {
 
         Job.put(player.getUniqueId(), Class);
 
-        checkPlayer_.checkPlayer_(player);
+        checkPlayer_.checkPlayer_Constantly(player);
         ChooseJob.player_.put(player.getUniqueId(), Boolean.TRUE);
         ChooseJob.choosingJob.put(player.getUniqueId(), Boolean.FALSE);
     }

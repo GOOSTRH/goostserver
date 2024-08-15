@@ -12,7 +12,9 @@ public class showjob implements CommandExecutor, Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player player) {
-            if (ChooseJob.player_.get(player.getUniqueId()) == null || !ChooseJob.player_.get(player.getUniqueId()) ){
+            if (ChooseJob.player_.get(player.getUniqueId()) == null
+                    || !ChooseJob.player_.get(player.getUniqueId())
+                    || ChooseJob.choosingJob.get(player.getUniqueId()) == Boolean.TRUE){
                 ChooseJob.choose_class((Player) sender);
             }else{
                 player.sendMessage("You already have a Job!");

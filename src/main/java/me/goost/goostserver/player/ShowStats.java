@@ -35,13 +35,13 @@ public class ShowStats implements Listener {
         TextComponent HPComponent = new TextComponent(
                 Math.round(health.health.get(player.getUniqueId()))
                         + "/"
-                        + Math.round((health.healthy.get(player.getUniqueId())))
+                        + Math.round((health.maxHealth.get(player.getUniqueId())))
                         +" [HP]"+"             ");
 
         HPComponent.setColor(ChatColor.RED);
 
         TextComponent ARComponent = new TextComponent(
-                def.get_def(player.getUniqueId())
+                def.GetDef(player.getUniqueId())
                 +"[AR]          ");
 
         ARComponent.setColor(ChatColor.GREEN);
@@ -49,7 +49,7 @@ public class ShowStats implements Listener {
         TextComponent MPComponent = new TextComponent(
                 mana.getMana(player.getUniqueId())
                 +"/"
-                +mana.getManam(player.getUniqueId())
+                +mana.getMaxMana(player.getUniqueId())
                 +" [MP]");
         MPComponent.setColor(ChatColor.BLUE);
 
