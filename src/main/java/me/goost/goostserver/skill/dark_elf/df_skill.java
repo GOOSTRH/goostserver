@@ -1,7 +1,7 @@
 package me.goost.goostserver.skill.dark_elf;
 
 import me.goost.goostserver.skill.Items;
-import me.goost.goostserver.skill.Skills_mana_uses;
+import me.goost.goostserver.skill.skillsManaUses;
 import me.goost.goostserver.skill.particle;
 import me.goost.goostserver.player.mana;
 import org.bukkit.ChatColor;
@@ -72,11 +72,10 @@ public class df_skill {
     }
 
     public static void invis(Player player){
-        mana.removeMana(player.getUniqueId(), Skills_mana_uses.Dark_elf_invis_skill());
+        mana.removeMana(player.getUniqueId(), skillsManaUses.BladeMaster_FireBall_skill());
         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20, 1),true);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 255),true);
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20*3, 2),true);
-
-        particle.spawn_ball_particle(player.getLocation(),player, Color.fromRGB(127, 0, 255), Color.fromRGB(255,102,255), 200,0.5f,0.8f,0.5f,2);
+        particle.spawnColorBallParticle(player.getLocation(),player, Color.fromRGB(127, 0, 255), Color.fromRGB(255,102,255), 200,0.5f,0.8f,0.5f,2);
     }
 }

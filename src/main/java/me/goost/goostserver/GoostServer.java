@@ -5,6 +5,7 @@ import me.goost.goostserver.SQLiteDB.dataBaseListener;
 import me.goost.goostserver.server.*;
 import me.goost.goostserver.player.*;
 import me.goost.goostserver.player.commands.*;
+import me.goost.goostserver.server.Casino.casinoMachines;
 import me.goost.goostserver.server.NPCs.NPCGUIClickEvent;
 import me.goost.goostserver.server.NPCs.NPCInteraction;
 import me.goost.goostserver.server.NPCs.SpawnNPCCmd;
@@ -62,6 +63,7 @@ public class GoostServer extends JavaPlugin{
         registerCommands(); // registerCommands ex. job
         registerEvents(); // registerEvents ex. joinEvent
         repeat();
+
     }
 
 
@@ -134,6 +136,10 @@ public class GoostServer extends JavaPlugin{
 
         Bukkit.getPluginManager().registerEvents(new NPCInteraction(), this);
         Bukkit.getPluginManager().registerEvents(new NPCGUIClickEvent(), this);
+
+        Bukkit.getPluginManager().registerEvents(new casinoMachines(), this);
+
+        Bukkit.getPluginManager().registerEvents(new worldTp(), this);
     }
 
     private void repeat(){

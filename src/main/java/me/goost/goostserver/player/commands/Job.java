@@ -1,8 +1,12 @@
 package me.goost.goostserver.player.commands;
 
+import me.goost.goostserver.SQLiteDB.Database;
+import me.goost.goostserver.SQLiteDB.PlayerStats;
 import me.goost.goostserver.SQLiteDB.dataBaseListener;
 import me.goost.goostserver.player.ChooseJob;
 import me.goost.goostserver.player.checkPlayer_;
+import me.goost.goostserver.player.health;
+import me.goost.goostserver.player.mana;
 import me.goost.goostserver.skill.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,7 +14,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -19,7 +27,7 @@ public class Job implements CommandExecutor {
 
     public static HashMap<UUID, String> Job = new HashMap<>();
 
-    private final String magicClass = "caster";
+    private final String magicClass = "magic";
     public String getMagicClass() {return magicClass;}
     private final String assassinClass = "assassin";
     public String getAssassinClass() {return assassinClass;}
@@ -60,9 +68,9 @@ public class Job implements CommandExecutor {
                     player.setWalkSpeed(0.30f);
                     give_item(player,Job.get(player.getUniqueId()));
                 }
-                case "sword" -> {
+                case "blademaster" -> {
                     // Saber for users
-                    setJobForUser(player,"sword");
+                    setJobForUser(player,"blademaster");
                     dataBaseListener.updateDataBasePlayerClassAndPlayer_(player, swordClass);
                     player.setWalkSpeed(0.25f);
                     give_item(player,Job.get(player.getUniqueId()));
@@ -74,7 +82,10 @@ public class Job implements CommandExecutor {
                     player.setWalkSpeed(0.15f);
                     give_item(player,Job.get(player.getUniqueId()));
                 }
-                default -> player.sendMessage("job "+args[0]+" does not exist.");
+                case "check" -> {
+                    // checking player's job
+                    player.sendMessage(ChatColor.WHITE+"Current Job is:"+ChatColor.BOLD+"->"+ChatColor.GOLD+Job.get(player.getUniqueId())+"<-");
+                }
             }
 
             // give starting item kit to the Player matches with the job
@@ -109,7 +120,7 @@ public class Job implements CommandExecutor {
             }
         }else if(Objects.equals(args[0], "check")){
             // checking player's job
-            player.sendMessage(ChatColor.WHITE+"Current Job is:"+ChatColor.BOLD+""+ChatColor.GOLD+Job.get(player.getUniqueId()));
+            player.sendMessage(ChatColor.WHITE+"Current Job is:"+ChatColor.BOLD+"->"+ChatColor.GOLD+Job.get(player.getUniqueId())+"<-");
         }
         return true;
         // end of job choosing ( chatBox's command
@@ -127,21 +138,29 @@ public class Job implements CommandExecutor {
                 //Magic for users
                 setJobForDatabase(player,"magic");
                 player.setWalkSpeed(0.17f);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 255),true);
+                mana.setMana(player.getUniqueId(),mana.getMaxMana(player.getUniqueId()));
             }
             case "assassin" -> {
                 //Assassin for users
                 setJobForDatabase(player,"assassin");
                 player.setWalkSpeed(0.30f);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 255),true);
+                mana.setMana(player.getUniqueId(),mana.getMaxMana(player.getUniqueId()));
             }
-            case "sword" -> {
+            case "blademaster" -> {
                 //Sword for users
-                setJobForDatabase(player,"sword");
+                setJobForDatabase(player,"blademaster");
                 player.setWalkSpeed(0.25f);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 255),true);
+                mana.setMana(player.getUniqueId(),mana.getMaxMana(player.getUniqueId()));
             }
             case "tank" -> {
                 //Night for users
                 setJobForDatabase(player,"tank");
                 player.setWalkSpeed(0.15f);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 255),true);
+                mana.setMana(player.getUniqueId(),mana.getMaxMana(player.getUniqueId()));
             }
 
             default -> {
@@ -174,8 +193,9 @@ public class Job implements CommandExecutor {
             case "magic" ->{
                 player.getInventory().addItem(Items.Short_knife);
             }
-            case "sword" ->{
+            case "blademaster" ->{
                 player.getInventory().addItem(Items.Short_knife);
+                player.getInventory().addItem(Items.BladeMaster_knife);
             }
             case "tank" ->{
                 player.getInventory().addItem(Items.Short_knife);
@@ -188,21 +208,41 @@ public class Job implements CommandExecutor {
     private static void setJobForUser(Player player , String Class){
         if (Job.get(player.getUniqueId()) != null) {
             player.sendMessage(ChatColor.RED+"Job is already applied!");
+            return;
         } else Job.putIfAbsent(player.getUniqueId(), Class);
-
+        setJob(player.getUniqueId(),Class);
         checkPlayer_.checkPlayer_Constantly(player);
         ChooseJob.player_.put(player.getUniqueId(), Boolean.TRUE);
         ChooseJob.choosingJob.put(player.getUniqueId(), Boolean.FALSE);
     }
 
     // SET JOB for database loading
-    private static void setJobForDatabase(Player player , String Class){
+    private static void setJobForDatabase(Player player , String Class) {
 
         Job.put(player.getUniqueId(), Class);
+        try {
+            PlayerStats stats = Database.findPlayerStatsByUUID(player.getUniqueId().toString());
+            if (stats == null) { // if db does not contain the players info
+                stats = new PlayerStats(
+                        player.getUniqueId().toString(),
+                        false, "", 0, 0, 0.0, new Date(), new Date()
+                );
+                stats.setClass_(Class);
+                Database.setPlayerStats(stats);
+            } else {
+                stats.setClass_(Class);
+                Database.updatePlayerStats(stats);
+            }
+        }
+        catch(SQLException e) {
+            Bukkit.getLogger().info("Class Job: SQLException "+e);
+        }
+
 
         checkPlayer_.checkPlayer_Constantly(player);
         ChooseJob.player_.put(player.getUniqueId(), Boolean.TRUE);
         ChooseJob.choosingJob.put(player.getUniqueId(), Boolean.FALSE);
+
     }
 
 }

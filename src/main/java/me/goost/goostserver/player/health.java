@@ -20,8 +20,8 @@ import java.util.UUID;
 
 public class health implements Listener{
 
-    static HashMap<UUID, Double> maxHealth = new HashMap<>();
-    static HashMap<UUID, Double> health = new HashMap<>();
+    public static HashMap<UUID, Double> maxHealth = new HashMap<>();
+    public static HashMap<UUID, Double> health = new HashMap<>();
 
 
     public static Double GetMaxHp(UUID uuid){

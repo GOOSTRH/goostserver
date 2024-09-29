@@ -13,21 +13,33 @@ public class Items {
     // basic items
     public static ItemStack Short_knife;
 
+    // Blade Master items
+    public static ItemStack BladeMaster_knife;
 
-    // basic skill items
 
-
-    // skill items
-
-    // Dark elf items
+    // Assassin items
     public static ItemStack Assassin_invis_book;
 
 
     public static void set_all_items(){
         set_Assassin_items();
         set_Short_knife();
+        set_BladeMaster_knife();
     }
 
+    public static void set_BladeMaster_knife(){
+        BladeMaster_knife = new ItemStack(Material.IRON_SWORD, 1);
+        ItemMeta meta = BladeMaster_knife.getItemMeta();
+        meta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "BladeMaster Sword");
+
+        List<String> lore_List = new ArrayList<String>();
+        lore_List.add(ChatColor.BOLD + "Basic BladeMaster Sword");
+        lore_List.add(ChatColor.BOLD + "[Right Click] to spawn a Fire Ball");
+
+        meta.setLore(lore_List);
+
+        BladeMaster_knife.setItemMeta(meta);
+    }
 
     public static void set_Short_knife(){
         Short_knife = new ItemStack(Material.IRON_SWORD, 1);

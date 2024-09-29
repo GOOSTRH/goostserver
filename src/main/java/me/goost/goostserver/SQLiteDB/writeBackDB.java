@@ -56,11 +56,14 @@ public class writeBackDB {
         }
     }
 
-    public static void savePlayerData(UUID uuid, PlayerStats stats) throws SQLException { // saving the cached player data into the DB
+    public static void savePlayerData(UUID uuid, PlayerStats stats) throws SQLException {
+        // saving the cached player data into the DB
         Database.updatePlayerStats(stats);
     }
 
     public static void updatePlayerCachedData(UUID uuid) throws SQLException {
+
+        // only update, Bank, Exp, level
 
         //PlayerStats stats = null;
         PlayerStats stats = Database.findPlayerStatsByUUID(uuid.toString());

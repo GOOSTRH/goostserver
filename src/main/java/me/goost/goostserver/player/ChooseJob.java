@@ -83,7 +83,7 @@ public class ChooseJob implements Listener {
                         org.bukkit.ChatColor.RED + org.bukkit.ChatColor.BOLD + "\nDMG +8\n"+
                         org.bukkit.ChatColor.GREEN + org.bukkit.ChatColor.BOLD + "\nHP +250\nARMOR +150\nMANA +150\nMVOEMENT SPD +25"
         ).create()));
-        sword.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/job sword"));
+        sword.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/job blademaster"));
 
         // demon
         TextComponent tank = new TextComponent("[PALADIN]");

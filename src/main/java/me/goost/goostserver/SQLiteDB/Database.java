@@ -1,6 +1,7 @@
 package me.goost.goostserver.SQLiteDB;
 
 import me.goost.goostserver.player.money;
+import me.goost.goostserver.server.checkPlayer;
 import me.goost.goostserver.server.staffCommands;
 import me.goost.goostserver.player.ChooseJob;
 import me.goost.goostserver.player.commands.Job;
@@ -38,12 +39,11 @@ public class Database {
         PlayerStats playerStats;
 
         try {
-            System.out.println("Database loading started!");
             playerStats = findPlayerStatsByUUID(String.valueOf(uuid));
             updateIngameWithDatabase(playerStats);
-            System.out.println("Successfully Loaded Player data from Database!");
+            checkPlayer.checkPlayersAllDataInDB(player, true); // check player datas
         } catch (SQLException ex) {
-            System.out.println("Unable to load database, something went wrong during loading.");
+            System.out.println("Unable to load player "+player.getName()+"'s database, something went wrong during loading.");
             ex.printStackTrace();
         }
     }
@@ -202,14 +202,28 @@ public class Database {
 
         UUID uuid = UUID.fromString(stats.getUuid());
 
-        if (stats.getPlayer()) {
-            if (stats.getClass_() != null){
-                Job.setJob(uuid, stats.getClass_());
-            }
-            ChooseJob.setPlayer_(uuid, stats.getPlayer());
-        } else {
-            ChooseJob.setPlayer_(uuid, stats.getPlayer());
+        ChooseJob.setPlayer_(uuid, stats.getPlayer());
+
+        money.SetBank(uuid, stats.getBank());
+        level.setLevel(uuid, stats.getLevel());
+        level.setExperience(uuid, stats.getExperience());
+
+        staffCommands.SetlastLoginDate(uuid, stats.getLastLogin());
+        staffCommands.SetlastLogoutDate(uuid, stats.getLastLogout());
+    }
+
+    public static void updateIngameWithDatabaseInitialize(PlayerStats stats) {
+        // pull data from database and update it in game
+
+        if (stats == null) {
+            return; // Do nothing if stats are null
         }
+
+        UUID uuid = UUID.fromString(stats.getUuid());
+
+        ChooseJob.setPlayer_(uuid, stats.getPlayer());
+        Job.Job.put( UUID.fromString(stats.getUuid()) , stats.getClass_());
+        Bukkit.getLogger().info("From database.java "+stats.getClass_());
 
         money.SetBank(uuid, stats.getBank());
         level.setLevel(uuid, stats.getLevel());

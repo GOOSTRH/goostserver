@@ -112,6 +112,11 @@ public class worldBorder {
 
                         currentStep++;
                     }
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        if(player.getWorld().getName().equals(worldName)){
+                            player.setWorldBorder(border);
+                        }
+                    }
                 }
             }.runTaskTimer(plugin, 0L, 1L);  // Run every tick (20 times per second)
 

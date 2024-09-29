@@ -19,9 +19,9 @@ public class checkPlayer_ {
     static Integer assassinDef = 220;
     static Integer assassinMP = 300;
 
-    static Double swordHP = 250.0;
-    static Integer swordDef = 300;
-    static Integer swordMP = 150;
+    static Double blademasterHP = 250.0;
+    static Integer blademasterDef = 300;
+    static Integer blademasterMP = 150;
 
     static Double paladinHP = 500.0;
     static Integer paladinDef = 350;
@@ -33,9 +33,6 @@ public class checkPlayer_ {
         // check Player's class to give the right health
         // right after choosing class
 
-        // ArcherClass		MagicClass		AssassinClass	    SwordClass		NightClass
-        // archerClass		magicClass		assassinClass		swordClass		nightClass
-        // 아처/archer        캐스터/Caster    어쌔신/Assassin      세이버/saber      마족/demon
 
         if(Job.Job.get(player.getUniqueId()) == null ){
             // no job
@@ -56,11 +53,11 @@ public class checkPlayer_ {
             setDefStats(player,assassinDef);
             setManaStats(player,assassinMP,assassinMP);
 
-        }else if(Job.Job.get(player.getUniqueId()).equals("sword") ){
+        }else if(Job.Job.get(player.getUniqueId()).equals("blademaster") ){
             // Blademaster
-            setHealthStats(player,swordHP,swordHP,20.0);
-            setDefStats(player,swordDef);
-            setManaStats(player,swordMP,swordMP);
+            setHealthStats(player, blademasterHP, blademasterHP,20.0);
+            setDefStats(player, blademasterDef);
+            setManaStats(player, blademasterMP, blademasterMP);
 
         }else if(Job.Job.get(player.getUniqueId()).equals("tank") ){
             // Paladin
@@ -91,11 +88,11 @@ public class checkPlayer_ {
             setDefStatsConstantly(player,assassinDef);
             setManaStatsConstantly(player,assassinMP,assassinMP);
 
-        }else if(Job.Job.get(player.getUniqueId()).equals("sword") ){
+        }else if(Job.Job.get(player.getUniqueId()).equals("blademaster") ){
             // Blademaster
-            setHealthStatsConstantly(player,swordHP,swordHP,20.0);
-            setDefStatsConstantly(player,swordDef);
-            setManaStatsConstantly(player,swordMP,swordMP);
+            setHealthStatsConstantly(player, blademasterHP, blademasterHP,20.0);
+            setDefStatsConstantly(player, blademasterDef);
+            setManaStatsConstantly(player, blademasterMP, blademasterMP);
 
         }else if(Job.Job.get(player.getUniqueId()).equals("tank") ){
             // Paladin

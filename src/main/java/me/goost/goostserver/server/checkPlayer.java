@@ -13,8 +13,7 @@ import java.util.Date;
 public class checkPlayer {
 
     // This method checks if the player's data exists (IN DB) and initializes it if not.
-    public static void checkPlayersAllDataInDB(Player player) throws SQLException {
-
+    public static void checkPlayersAllDataInDB(Player player, boolean initialize) throws SQLException {
 
         PlayerStats playerStats = Database.findPlayerStatsByUUID(player.getUniqueId().toString());
 
@@ -23,7 +22,7 @@ public class checkPlayer {
             playerStats = new PlayerStats(
                     player.getUniqueId().toString(),
                     false,   // Player status
-                    "",      // Class
+                    null,      // Class
                     0,       // Bank
                     0,       // Level
                     0.0,     // Experience
@@ -49,7 +48,11 @@ public class checkPlayer {
 
         Database.setPlayerStats(playerStats);
 
-        Database.updateIngameWithDatabase(playerStats);
+        if (initialize){
+            Database.updateIngameWithDatabaseInitialize(playerStats);
+        }else{
+            Database.updateIngameWithDatabase(playerStats);
+        }
     }
 
     // This method checks if the player's data exists (IN HOME DB) and initializes it if not.

@@ -54,7 +54,7 @@ public class home implements CommandExecutor {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (player.getLocation().distance(initialLocation) > 0.1) {
+                if (player.getLocation().distance(initialLocation) > 0.5) {
                     player.sendMessage("Teleportation cancelled because you moved!");
                     return;
                 }

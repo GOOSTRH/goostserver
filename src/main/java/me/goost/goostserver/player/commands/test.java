@@ -23,8 +23,28 @@ public class test implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (!(sender instanceof Player player)) return true;
+        if(!(sender instanceof Player player)){
+            return true;
+        }
+        if(!player.isOp()){return false;} // if the player isn't OP return false
 
+        if(args.length == 0){ // if there is no arguments return and tell instructions
+            player.sendMessage("Usage: /test 1/2/3");
+            return false;
+        }
+
+        switch (args[0]) {
+            case "1" -> {
+                test1(player);
+            }
+            default -> player.sendMessage("this command does not exist.");
+        }
+
+
+        return false;
+    }
+
+    private void test1(Player player){
         Location location = player.getLocation();
         World world = player.getWorld();
 
@@ -101,7 +121,6 @@ public class test implements CommandExecutor {
         player.getInventory().addItem(testweapon);
         player.getInventory().addItem(testarmor);
         player.getInventory().addItem(testhelmet);
-        return false;
     }
 }
 

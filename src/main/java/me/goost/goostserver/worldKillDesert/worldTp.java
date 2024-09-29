@@ -1,20 +1,20 @@
 package me.goost.goostserver.worldKillDesert;
 
 import me.goost.goostserver.GoostServer;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.Random;
 
-public class worldTp implements CommandExecutor {
+public class worldTp implements CommandExecutor, Listener {
 
 
     Location Spawn = new Location(Bukkit.getWorld("world"), -19, 161, 51,180,0);
@@ -69,4 +69,8 @@ public class worldTp implements CommandExecutor {
         }
         return false;
     }
+
+
+
 }
+
